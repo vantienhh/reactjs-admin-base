@@ -10,8 +10,8 @@ import { NavLink as RouterLink } from 'react-router-dom'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import { StarBorder } from '@material-ui/icons'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
 import MailIcon from '@material-ui/icons/Mail'
+import DashboardIcon from '@material-ui/icons/Dashboard';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,23 +31,23 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const items: ItemsMenu[] = [
   {
-    text: 'index',
-    icon: InboxIcon,
-    href: '/errors/404'
+    text: 'Dashboard',
+    icon: DashboardIcon,
+    href: '/dashboard'
   },
   {
     text: 'mails',
     icon: MailIcon,
     children: [
       {
-        text: 'children 1',
+        text: 'Example',
         icon: StarBorder,
-        href: '/test'
+        href: '/example'
       },
       {
-        text: 'children 2',
+        text: 'Test',
         icon: StarBorder,
-        href: '/test1'
+        href: '/test'
       }
     ]
   }
@@ -57,11 +57,7 @@ const ChildrenMenu: React.FunctionComponent<PropsChildrenMenu> = (props: PropsCh
   const classes = useStyles()
 
   return (
-    <Collapse
-      in={ true }
-      timeout="auto"
-      unmountOnExit
-    >
+    <Collapse in={ true } timeout="auto" unmountOnExit>
       <List disablePadding>
         { props.children.map(item => (
           <div key={ item.text }>
@@ -88,11 +84,7 @@ const ListMenu: React.FunctionComponent = () => {
         if (item.href) {
           return (
             <div key={ `${ item.text }_${ index }` }>
-              <ListItem
-                button
-                component={ RouterLink }
-                to={ item.href }
-              >
+              <ListItem button component={ RouterLink } to={ item.href }>
                 <ListItemIcon>{ <item.icon /> }</ListItemIcon>
                 <ListItemText primary={ item.text } />
               </ListItem>

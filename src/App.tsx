@@ -5,7 +5,7 @@ import DrawerBar from 'src/components/DrawerBar'
 import TopBar from 'src/components/TopBar'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Route } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import clsx from 'clsx'
 import { appRoutes } from 'src/routes/App'
 
@@ -69,8 +69,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
   })
 )
 
-function App(props: any) {
-  console.log('123', props)
+function App() {
   const classes = useStyles()
   const [isOpenDrawer, setOpen] = React.useState(false)
   const handleDrawerOpen = (): void => setOpen(true)
@@ -84,10 +83,7 @@ function App(props: any) {
         position="fixed"
         className={ clsx(classes.appBar, { [classes.appBarShift]: isOpenDrawer }) }
       >
-        <TopBar
-          handleDrawerOpen={ handleDrawerOpen }
-          isOpenDrawer={ isOpenDrawer }
-        />
+        <TopBar handleDrawerOpen={ handleDrawerOpen } isOpenDrawer={ isOpenDrawer } />
       </MaterialAppBar>
 
       <MaterialDrawer
@@ -108,16 +104,19 @@ function App(props: any) {
 
       <main className={ classes.content }>
         <div className={ classes.toolbar } />
-        {
-          appRoutes.map((router, index) =>
-            <Route
-              key={ index }
-              path={ router.path }
-              exact={ router.exact }
-              component={ router.component }
-            />
-          )
-        }
+        <Switch>
+          {
+            appRoutes.map((router, index) =>
+              <Route
+                key={ index }
+                path={ router.path }
+                exact={ router.exact }
+                component={ router.component }
+              />
+            )
+          }
+          <Route render={ () => <Redirect to="/errors/404" /> } />
+        </Switch>
       </main>
     </div>
   )

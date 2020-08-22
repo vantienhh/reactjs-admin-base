@@ -36,10 +36,7 @@ const TopBar: React.FunctionComponent<AppBarProps> = (props: AppBarProps) => {
         >
           <MenuIcon />
         </IconButton>
-        <Typography
-          variant="h6"
-          noWrap
-        >
+        <Typography variant="h6" noWrap>
           Admin App
         </Typography>
       </Toolbar>

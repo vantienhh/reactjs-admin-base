@@ -1,27 +1,21 @@
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
-import ErrorsRouter from 'src/routes/Errors'
 import App from 'src/App'
+import React from 'react'
+import { Switch, Route, Redirect } from 'react-router-dom'
+import NotFound from 'src/views/errors/NotFound'
+import ServerError from 'src/views/errors/ServerError'
+import Unauthorized from 'src/views/errors/Unauthorized'
 
 function Routes() {
-  let errorRoutes: Array<any> = []
-  ErrorsRouter.forEach((router, index) => {
-    errorRoutes.push(
-      <Route
-        key={ index }
-        path={ router.path }
-        exact={ router.exact }
-        component={ router.component }
-      />
-    )
-  })
-
   return (
     <Switch>
-      { errorRoutes }
-      <Switch>
-        <Route path="/" component={(props: any) => <App {...props} />} />
-      </Switch>
+      // Errors
+      <Route exact path="/errors/401" component={ Unauthorized } />
+      <Route exact path="/errors/404" component={ NotFound } />
+      <Route exact path="/errors/500" component={ ServerError } />
+
+      // App
+      <Route exact path="/" render={ (props) => <Redirect to="/dashboard" push { ...props } /> } />
+      <Route path="/" component={ App } />
     </Switch>
   )
 }
