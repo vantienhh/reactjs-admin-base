@@ -71,7 +71,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
 
 function App() {
   const classes = useStyles()
-  const [isOpenDrawer, setOpen] = React.useState(false)
+  const [isOpenDrawer, setOpen] = React.useState(true)
   const handleDrawerOpen = (): void => setOpen(true)
   const handleDrawerClose = (): void => setOpen(false)
 

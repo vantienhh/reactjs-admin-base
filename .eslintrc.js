@@ -37,10 +37,11 @@ module.exports = {
     'no-console': 'off',
     'no-param-reassign': 'off',
     'no-plusplus': 'off',
-    'react-hooks/exhaustive-deps': 'off',
     'react/forbid-prop-types': 'off',
     'react/jsx-filename-extension': 'off',
     'react/jsx-props-no-spreading': 'off',
-    'react/require-default-props': 'off'
+    'react/require-default-props': 'off',
+    "react-hooks/rules-of-hooks": "error", // Kiểm tra rule của Hook
+    "react-hooks/exhaustive-deps": "warn" // Kiểm tra effect dependency
   },
 }

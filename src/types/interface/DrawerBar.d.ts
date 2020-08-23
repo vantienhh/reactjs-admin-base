@@ -6,19 +6,25 @@ export interface DrawerBarProps extends PropsWithChildren<{}> {
   handleDrawerClose: () => void
 }
 
-export interface Menu {
+export interface Item {
   text: string
   icon: OverridableComponent<SvgIconTypeMap>
   href: string
 }
 
-export interface ItemsMenu {
+export interface Items {
   text: string,
   icon: OverridableComponent<SvgIconTypeMap>
   href?: string
-  children?: Menu[]
+  children?: Item[]
 }
 
-export interface PropsChildrenMenu extends PropsWithChildren {
-  children: Menu[]
+export interface PropsMenuChildren extends PropsWithChildren {
+  open: boolean
+  forwardedRef?: any
+  children: Item[]
+}
+
+export interface PropsMenu extends Items{
+
 }

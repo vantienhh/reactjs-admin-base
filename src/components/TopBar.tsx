@@ -1,10 +1,10 @@
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 import clsx from 'clsx'
 import { IconButton, Typography, Toolbar } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
-interface AppBarProps extends PropsWithChildren<{}> {
+interface AppBarProps extends React.PropsWithChildren<{}> {
   handleDrawerOpen: () => void
   isOpenDrawer: boolean
 }
@@ -20,7 +20,7 @@ const useStyles: any = makeStyles(() =>
   })
 )
 
-const TopBar: React.FunctionComponent<AppBarProps> = (props: AppBarProps) => {
+const TopBar = (props: AppBarProps) => {
   const classes = useStyles()
   return (
     <div>

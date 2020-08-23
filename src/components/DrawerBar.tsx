@@ -1,17 +1,18 @@
 import React from 'react'
 import { IconButton, createStyles, Theme, List, Divider, useTheme } from '@material-ui/core'
-import { ItemsMenu, DrawerBarProps, PropsChildrenMenu } from 'src/types/interface/DrawerBar'
+import { Items, DrawerBarProps, PropsMenuChildren, PropsMenu } from 'src/types/interface/DrawerBar'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import { makeStyles } from '@material-ui/core/styles'
-import Collapse from '@material-ui/core/Collapse'
-import { NavLink as RouterLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import { StarBorder } from '@material-ui/icons'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import MailIcon from '@material-ui/icons/Mail'
-import DashboardIcon from '@material-ui/icons/Dashboard';
+import DashboardIcon from '@material-ui/icons/Dashboard'
+import clsx from 'clsx'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,11 +26,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     nested: {
       paddingLeft: theme.spacing(4)
+    },
+    backgroundCurrentMenu: {
+      background: '#dadada'
     }
   })
 )
 
-const items: ItemsMenu[] = [
+const items: Items[] = [
   {
     text: 'Dashboard',
     icon: DashboardIcon,
@@ -53,54 +57,64 @@ const items: ItemsMenu[] = [
   }
 ]
 
-const ChildrenMenu: React.FunctionComponent<PropsChildrenMenu> = (props: PropsChildrenMenu) => {
+const MenuChildren = (props: PropsMenuChildren) => {
   const classes = useStyles()
+  const currentPath = useLocation().pathname
 
   return (
-    <Collapse in={ true } timeout="auto" unmountOnExit>
-      <List disablePadding>
-        { props.children.map(item => (
-          <div key={ item.text }>
-            <ListItem
-              button
-              component={ RouterLink }
-              to={ item.href }
-              className={ classes.nested }
-            >
-              <ListItemIcon>{ <item.icon /> }</ListItemIcon>
-              <ListItemText primary={ item.text } />
-            </ListItem>
-          </div>
-        )) }
-      </List>
-    </Collapse>
+    <List disablePadding hidden={ !props.open }>
+      { props.children.map(item => (
+        <div
+          key={ item.text }
+          className={ clsx({ [classes.backgroundCurrentMenu]: currentPath === item.href }) }
+        >
+          <ListItem
+            button
+            component={ NavLink }
+            to={ item.href }
+            className={ classes.nested }
+          >
+            <ListItemIcon>{ <item.icon /> }</ListItemIcon>
+            <ListItemText primary={ item.text } />
+          </ListItem>
+        </div>
+      )) }
+    </List>
   )
 }
 
-const ListMenu: React.FunctionComponent = () => {
+const Menu = (props: PropsMenu) => {
+  const [open, setOpen] = React.useState(false)
+  const handleClick = (): void => setOpen(!open)
+
+  let propsListItem: any = { button: true }
+  if (props.href) propsListItem = { ...propsListItem, component: NavLink, to: props.href }
+
   return (
-    <List>
+    <div>
+      <ListItem { ...propsListItem } onClick={ handleClick }>
+        <ListItemIcon>{ <props.icon /> }</ListItemIcon>
+        <ListItemText primary={ props.text } />
+        { props.children && (open ? <ExpandMoreIcon /> : <ChevronLeftIcon />) }
+      </ListItem>
+      { props.children?.length && <MenuChildren children={ props.children } open={ open } /> }
+    </div>
+  )
+}
+
+const ListMenu = () => {
+  const classes = useStyles()
+  const currentPath = useLocation().pathname
+
+  return (
+    <List disablePadding>
       { items.map((item, index) => {
-        if (item.href) {
-          return (
-            <div key={ `${ item.text }_${ index }` }>
-              <ListItem button component={ RouterLink } to={ item.href }>
-                <ListItemIcon>{ <item.icon /> }</ListItemIcon>
-                <ListItemText primary={ item.text } />
-              </ListItem>
-              { item.children?.length && <ChildrenMenu children={ item.children } /> }
-            </div>
-          )
-        }
-
         return (
-          <div key={ `${ item.text }_${ index }` }>
-            <ListItem>
-              <ListItemIcon>{ <item.icon /> }</ListItemIcon>
-              <ListItemText primary={ item.text } />
-            </ListItem>
-
-            { item.children?.length && <ChildrenMenu children={ item.children } /> }
+          <div
+            key={ item.text }
+            className={ clsx({ [classes.backgroundCurrentMenu]: currentPath === item.href }) }
+          >
+            <Menu { ...item } key={ index } />
           </div>
         )
       }) }
@@ -108,13 +122,14 @@ const ListMenu: React.FunctionComponent = () => {
   )
 }
 
-const DrawerBar: React.FunctionComponent<DrawerBarProps> = (props: DrawerBarProps) => {
+const DrawerBar = (props: DrawerBarProps) => {
   const classes = useStyles()
   const theme = useTheme()
 
   return (
     <div>
       <div className={ classes.toolbar }>
+        <h3>Admin App</h3>
         <IconButton onClick={ props.handleDrawerClose }>
           { theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon /> }
         </IconButton>
