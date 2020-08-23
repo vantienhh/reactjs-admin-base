@@ -2,10 +2,6 @@ import { PropsWithChildren } from 'react'
 import { OverridableComponent } from '@material-ui/core/OverridableComponent'
 import { SvgIconTypeMap } from '@material-ui/core/SvgIcon/SvgIcon'
 
-export interface DrawerBarProps extends PropsWithChildren<{}> {
-  handleDrawerClose: () => void
-}
-
 export interface Item {
   text: string
   icon: OverridableComponent<SvgIconTypeMap>
@@ -21,7 +17,6 @@ export interface Items {
 
 export interface PropsMenuChildren extends PropsWithChildren {
   open: boolean
-  forwardedRef?: any
   children: Item[]
 }
 

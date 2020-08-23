@@ -1,44 +1,24 @@
 import React from 'react'
-import clsx from 'clsx'
-import { IconButton, Typography, Toolbar } from '@material-ui/core'
+import { IconButton, Toolbar } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
-import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 interface AppBarProps extends React.PropsWithChildren<{}> {
-  handleDrawerOpen: () => void
+  handleDrawer: () => void
   isOpenDrawer: boolean
 }
 
-const useStyles: any = makeStyles(() =>
-  createStyles({
-    menuButton: {
-      marginRight: 36
-    },
-    hide: {
-      display: 'none'
-    }
-  })
-)
-
 const TopBar = (props: AppBarProps) => {
-  const classes = useStyles()
   return (
     <div>
-      <Toolbar>
+      <Toolbar style={{minHeight: 50}}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
-          onClick={ props.handleDrawerOpen }
+          onClick={ props.handleDrawer }
           edge="start"
-          className={ clsx(classes.menuButton, {
-            [classes.hide]: props.isOpenDrawer
-          }) }
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" noWrap>
-          Admin App
-        </Typography>
       </Toolbar>
     </div>
   )

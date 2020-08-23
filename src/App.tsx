@@ -16,14 +16,14 @@ const useStyles: any = makeStyles((theme: Theme) =>
     root: {
       display: 'flex'
     },
-    appBar: {
+    topBar: {
       zIndex: theme.zIndex.drawer + 1,
       transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen
       })
     },
-    appBarShift: {
+    topBarShift: {
       marginLeft: drawerWidth,
       width: `calc(100% - ${ drawerWidth }px)`,
       transition: theme.transitions.create(['width', 'margin'], {
@@ -58,9 +58,10 @@ const useStyles: any = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'flex-end',
-      padding: theme.spacing(0, 1),
+      // padding: theme.spacing(0, 1),
       // necessary for content to be below app bar
-      ...theme.mixins.toolbar
+      // ...theme.mixins.toolbar
+      height: 50
     },
     content: {
       flexGrow: 1,
@@ -72,8 +73,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
 function App() {
   const classes = useStyles()
   const [isOpenDrawer, setOpen] = React.useState(true)
-  const handleDrawerOpen = (): void => setOpen(true)
-  const handleDrawerClose = (): void => setOpen(false)
+  const handleDrawer = (): void => setOpen(!isOpenDrawer)
 
   return (
     <div className={ classes.root }>
@@ -81,9 +81,9 @@ function App() {
       <MaterialAppBar
         elevation={ 0 }
         position="fixed"
-        className={ clsx(classes.appBar, { [classes.appBarShift]: isOpenDrawer }) }
+        className={ clsx(classes.topBar, { [classes.topBarShift]: isOpenDrawer }) }
       >
-        <TopBar handleDrawerOpen={ handleDrawerOpen } isOpenDrawer={ isOpenDrawer } />
+        <TopBar handleDrawer={ handleDrawer } isOpenDrawer={ isOpenDrawer } />
       </MaterialAppBar>
 
       <MaterialDrawer
@@ -99,7 +99,7 @@ function App() {
           })
         } }
       >
-        <DrawerBar handleDrawerClose={ handleDrawerClose } />
+        <DrawerBar />
       </MaterialDrawer>
 
       <main className={ classes.content }>

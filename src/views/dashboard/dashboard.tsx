@@ -3,7 +3,7 @@ import React from 'react'
 function Dashboard(): React.FunctionComponentElement<any> {
   return (
     <div>
-      <h1>Dashboard</h1>
+      <strong>Dashboard</strong>
     </div>
   )
 }

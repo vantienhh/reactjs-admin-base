@@ -1,12 +1,11 @@
 import React from 'react'
-import { IconButton, createStyles, Theme, List, Divider, useTheme } from '@material-ui/core'
-import { Items, DrawerBarProps, PropsMenuChildren, PropsMenu } from 'src/types/interface/DrawerBar'
+import { createStyles, Theme, List, Divider } from '@material-ui/core'
+import { Items, PropsMenuChildren, PropsMenu } from 'src/types/interface/DrawerBar'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import { makeStyles } from '@material-ui/core/styles'
 import { NavLink, useLocation } from 'react-router-dom'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import { StarBorder } from '@material-ui/icons'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -19,10 +18,11 @@ const useStyles = makeStyles((theme: Theme) =>
     toolbar: {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'flex-end',
+      justifyContent: 'center',
       padding: theme.spacing(0, 1),
       // necessary for content to be below app bar
-      ...theme.mixins.toolbar
+      // ...theme.mixins.toolbar,
+      height: 50
     },
     nested: {
       paddingLeft: theme.spacing(4)
@@ -122,17 +122,13 @@ const ListMenu = () => {
   )
 }
 
-const DrawerBar = (props: DrawerBarProps) => {
+const DrawerBar = () => {
   const classes = useStyles()
-  const theme = useTheme()
 
   return (
     <div>
       <div className={ classes.toolbar }>
         <h3>Admin App</h3>
-        <IconButton onClick={ props.handleDrawerClose }>
-          { theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon /> }
-        </IconButton>
       </div>
       <Divider />
       <ListMenu />
