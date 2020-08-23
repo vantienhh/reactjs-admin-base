@@ -1,17 +1,19 @@
 import React from 'react'
 import MaterialAppBar from '@material-ui/core/AppBar'
 import MaterialDrawer from '@material-ui/core/Drawer'
-import DrawerBar from 'src/components/DrawerBar'
+import DrawerBarNormal from 'src/components/DrawerBar/DrawerBarNormal'
 import TopBar from 'src/components/TopBar'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import clsx from 'clsx'
 import { appRoutes } from 'src/routes/App'
+import DrawerBarCompact from 'src/components/DrawerBar/DrawerBarCompact'
 
-const drawerWidth = 240
+const drawerNormalWidth = 240
+const drawerCompactWidth = 50
 
-const useStyles: any = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex'
@@ -23,36 +25,21 @@ const useStyles: any = makeStyles((theme: Theme) =>
         duration: theme.transitions.duration.leavingScreen
       })
     },
-    topBarShift: {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${ drawerWidth }px)`,
+    topBarShort: {
+      marginLeft: drawerNormalWidth,
+      width: `calc(100% - ${drawerNormalWidth}px)`,
       transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen
       })
     },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-      whiteSpace: 'nowrap'
-    },
-    drawerOpen: {
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
+    topBarLong: {
+      marginLeft: drawerNormalWidth,
+      width: `calc(100% - ${drawerCompactWidth}px)`,
+      transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen
       })
-    },
-    drawerClose: {
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen
-      }),
-      overflowX: 'hidden',
-      width: theme.spacing(7) + 1,
-      [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(9) + 1
-      }
     },
     toolbar: {
       display: 'flex',
@@ -70,52 +57,103 @@ const useStyles: any = makeStyles((theme: Theme) =>
   })
 )
 
+const styleDrawerNormal= makeStyles((theme: Theme) =>
+  createStyles({
+    drawer: {
+      width: drawerNormalWidth,
+      flexShrink: 0,
+      whiteSpace: 'nowrap'
+    },
+    pager: {
+      width: drawerNormalWidth,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen
+      })
+    }
+  })
+)
+
+const styleDrawerCompact = makeStyles((theme: Theme) =>
+  createStyles({
+    drawer: {
+      width: drawerCompactWidth,
+      flexShrink: 0,
+      whiteSpace: 'nowrap'
+    },
+    pager: {
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen
+      }),
+      overflowX: 'hidden',
+      width: drawerCompactWidth
+    },
+  })
+)
+
+function MaterialDrawerBarNormal() {
+  const classes = styleDrawerNormal()
+  return (
+    <MaterialDrawer
+      variant="permanent"
+      className={clsx(classes.drawer, classes.pager)}
+      classes={{ paper: classes.pager }}
+    >
+      <DrawerBarNormal />
+    </MaterialDrawer>
+  )
+}
+
+function MaterialDrawerBarCompact() {
+  const classes = styleDrawerCompact()
+
+  return (
+    <MaterialDrawer
+      variant="permanent"
+      className={clsx(classes.drawer, classes.pager)}
+      classes={{ paper: classes.pager }}
+    >
+      <DrawerBarCompact />
+    </MaterialDrawer>
+  )
+}
+
 function App() {
   const classes = useStyles()
-  const [isOpenDrawer, setOpen] = React.useState(true)
+  const [isOpenDrawer, setOpen] = React.useState(false)
   const handleDrawer = (): void => setOpen(!isOpenDrawer)
 
   return (
-    <div className={ classes.root }>
+    <div className={classes.root}>
       <CssBaseline />
       <MaterialAppBar
-        elevation={ 0 }
+        elevation={0}
         position="fixed"
-        className={ clsx(classes.topBar, { [classes.topBarShift]: isOpenDrawer }) }
+        className={clsx(classes.topBar, {
+          [classes.topBarShort]: isOpenDrawer,
+          [classes.topBarLong]: !isOpenDrawer
+        })}
       >
-        <TopBar handleDrawer={ handleDrawer } isOpenDrawer={ isOpenDrawer } />
+        <TopBar handleDrawer={handleDrawer} isOpenDrawer={isOpenDrawer} />
       </MaterialAppBar>
 
-      <MaterialDrawer
-        variant="permanent"
-        className={ clsx(classes.drawer, {
-          [classes.drawerOpen]: isOpenDrawer,
-          [classes.drawerClose]: !isOpenDrawer
-        }) }
-        classes={ {
-          paper: clsx({
-            [classes.drawerOpen]: isOpenDrawer,
-            [classes.drawerClose]: !isOpenDrawer
-          })
-        } }
-      >
-        <DrawerBar />
-      </MaterialDrawer>
+      {isOpenDrawer ? <MaterialDrawerBarNormal /> : <MaterialDrawerBarCompact />}
 
-      <main className={ classes.content }>
-        <div className={ classes.toolbar } />
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
         <Switch>
           {
             appRoutes.map((router, index) =>
               <Route
-                key={ index }
-                path={ router.path }
-                exact={ router.exact }
-                component={ router.component }
+                key={index}
+                path={router.path}
+                exact={router.exact}
+                component={router.component}
               />
             )
           }
-          <Route render={ () => <Redirect to="/errors/404" /> } />
+          <Route render={() => <Redirect to="/errors/404" />} />
         </Switch>
       </main>
     </div>

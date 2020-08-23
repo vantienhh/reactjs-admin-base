@@ -10,11 +10,11 @@ interface AppBarProps extends React.PropsWithChildren<{}> {
 const TopBar = (props: AppBarProps) => {
   return (
     <div>
-      <Toolbar style={{minHeight: 50}}>
+      <Toolbar style={{ minHeight: 50 }}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
-          onClick={ props.handleDrawer }
+          onClick={props.handleDrawer}
           edge="start"
         >
           <MenuIcon />

@@ -1,5 +1,6 @@
 {
-  "name": "reactjs-example",
+  "name": "reactjs-admin-base",
+  "author": "Lê Văn Tiến",
   "version": "0.1.0",
   "private": true,
   "scripts": {

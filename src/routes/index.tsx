@@ -9,13 +9,13 @@ function Routes() {
   return (
     <Switch>
       // Errors
-      <Route exact path="/errors/401" component={ Unauthorized } />
-      <Route exact path="/errors/404" component={ NotFound } />
-      <Route exact path="/errors/500" component={ ServerError } />
+      <Route exact path="/errors/401" component={Unauthorized} />
+      <Route exact path="/errors/404" component={NotFound} />
+      <Route exact path="/errors/500" component={ServerError} />
 
       // App
-      <Route exact path="/" render={ (props) => <Redirect to="/dashboard" push { ...props } /> } />
-      <Route path="/" component={ App } />
+      <Route exact path="/" render={(props) => <Redirect to="/dashboard" push {...props} />} />
+      <Route path="/" component={App} />
     </Switch>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { createStyles, Theme, List, Divider } from '@material-ui/core'
-import { Items, PropsMenuChildren, PropsMenu } from 'src/types/interface/DrawerBar'
+import { Items, PropsItemChildren, PropsComponentItem } from 'src/types/interface/DrawerBar'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -57,33 +57,33 @@ const items: Items[] = [
   }
 ]
 
-const MenuChildren = (props: PropsMenuChildren) => {
+const ItemChildren = (props: PropsItemChildren) => {
   const classes = useStyles()
   const currentPath = useLocation().pathname
 
   return (
-    <List disablePadding hidden={ !props.open }>
-      { props.children.map(item => (
+    <List disablePadding hidden={!props.open}>
+      {props.children.map(item => (
         <div
-          key={ item.text }
-          className={ clsx({ [classes.backgroundCurrentMenu]: currentPath === item.href }) }
+          key={item.text}
+          className={clsx({ [classes.backgroundCurrentMenu]: currentPath === item.href })}
         >
           <ListItem
             button
-            component={ NavLink }
-            to={ item.href }
-            className={ classes.nested }
+            component={NavLink}
+            to={item.href}
+            className={classes.nested}
           >
-            <ListItemIcon>{ <item.icon /> }</ListItemIcon>
-            <ListItemText primary={ item.text } />
+            <ListItemIcon>{<item.icon />}</ListItemIcon>
+            <ListItemText primary={item.text} />
           </ListItem>
         </div>
-      )) }
+      ))}
     </List>
   )
 }
 
-const Menu = (props: PropsMenu) => {
+const ComponentItem = (props: PropsComponentItem) => {
   const [open, setOpen] = React.useState(false)
   const handleClick = (): void => setOpen(!open)
 
@@ -92,48 +92,48 @@ const Menu = (props: PropsMenu) => {
 
   return (
     <div>
-      <ListItem { ...propsListItem } onClick={ handleClick }>
-        <ListItemIcon>{ <props.icon /> }</ListItemIcon>
-        <ListItemText primary={ props.text } />
-        { props.children && (open ? <ExpandMoreIcon /> : <ChevronLeftIcon />) }
+      <ListItem {...propsListItem} onClick={handleClick}>
+        <ListItemIcon>{<props.icon />}</ListItemIcon>
+        <ListItemText primary={props.text} />
+        {props.children && (open ? <ExpandMoreIcon /> : <ChevronLeftIcon />)}
       </ListItem>
-      { props.children?.length && <MenuChildren children={ props.children } open={ open } /> }
+      {props.children?.length && <ItemChildren children={props.children} open={open} />}
     </div>
   )
 }
 
-const ListMenu = () => {
+const SidebarMenu = () => {
   const classes = useStyles()
   const currentPath = useLocation().pathname
 
   return (
     <List disablePadding>
-      { items.map((item, index) => {
+      {items.map((item, index) => {
         return (
           <div
-            key={ item.text }
-            className={ clsx({ [classes.backgroundCurrentMenu]: currentPath === item.href }) }
+            key={item.text}
+            className={clsx({ [classes.backgroundCurrentMenu]: currentPath === item.href })}
           >
-            <Menu { ...item } key={ index } />
+            <ComponentItem {...item} key={index} />
           </div>
         )
-      }) }
+      })}
     </List>
   )
 }
 
-const DrawerBar = () => {
+const DrawerBarNormal = () => {
   const classes = useStyles()
 
   return (
     <div>
-      <div className={ classes.toolbar }>
+      <div className={classes.toolbar}>
         <h3>Admin App</h3>
       </div>
       <Divider />
-      <ListMenu />
+      <SidebarMenu />
     </div>
   )
 }
 
-export default DrawerBar
+export default DrawerBarNormal

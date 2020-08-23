@@ -15,11 +15,17 @@ export interface Items {
   children?: Item[]
 }
 
-export interface PropsMenuChildren extends PropsWithChildren {
+export interface PropsItemChildren extends PropsWithChildren {
   open: boolean
   children: Item[]
 }
 
-export interface PropsMenu extends Items{
+export interface PropsComponentItem extends Items {
 
+}
+
+export interface PropsTreeViewItemChildren {
+  open: boolean
+  anchorEl: any
+  closeTreeView(): void
 }
