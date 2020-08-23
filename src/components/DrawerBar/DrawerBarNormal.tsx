@@ -1,64 +1,17 @@
 import React from 'react'
-import { createStyles, Theme, List, Divider } from '@material-ui/core'
-import { Items, PropsItemChildren, PropsComponentItem } from 'src/types/interface/DrawerBar'
+import clsx from 'clsx'
+import { List, Divider } from '@material-ui/core'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import { makeStyles } from '@material-ui/core/styles'
 import { NavLink, useLocation } from 'react-router-dom'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import { StarBorder } from '@material-ui/icons'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import MailIcon from '@material-ui/icons/Mail'
-import DashboardIcon from '@material-ui/icons/Dashboard'
-import clsx from 'clsx'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    toolbar: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      // ...theme.mixins.toolbar,
-      height: 50
-    },
-    nested: {
-      paddingLeft: theme.spacing(4)
-    },
-    backgroundCurrentMenu: {
-      background: '#dadada'
-    }
-  })
-)
-
-const items: Items[] = [
-  {
-    text: 'Dashboard',
-    icon: DashboardIcon,
-    href: '/dashboard'
-  },
-  {
-    text: 'mails',
-    icon: MailIcon,
-    children: [
-      {
-        text: 'Example',
-        icon: StarBorder,
-        href: '/example'
-      },
-      {
-        text: 'Test',
-        icon: StarBorder,
-        href: '/test'
-      }
-    ]
-  }
-]
+import { drawerStyles, drawerItems } from './config'
+import { PropsItemChildren, PropsComponentItem } from 'src/types/interface/DrawerBar'
 
 const ItemChildren = (props: PropsItemChildren) => {
-  const classes = useStyles()
+  const classes = drawerStyles()
   const currentPath = useLocation().pathname
 
   return (
@@ -103,12 +56,12 @@ const ComponentItem = (props: PropsComponentItem) => {
 }
 
 const SidebarMenu = () => {
-  const classes = useStyles()
+  const classes = drawerStyles()
   const currentPath = useLocation().pathname
 
   return (
     <List disablePadding>
-      {items.map((item, index) => {
+      {drawerItems.map((item, index) => {
         return (
           <div
             key={item.text}
@@ -123,7 +76,7 @@ const SidebarMenu = () => {
 }
 
 const DrawerBarNormal = () => {
-  const classes = useStyles()
+  const classes = drawerStyles()
 
   return (
     <div>

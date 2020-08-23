@@ -21,11 +21,8 @@ export interface PropsItemChildren extends PropsWithChildren {
 }
 
 export interface PropsComponentItem extends Items {
-
 }
 
 export interface PropsTreeViewItemChildren {
-  open: boolean
-  anchorEl: any
-  closeTreeView(): void
+
 }

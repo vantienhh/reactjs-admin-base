@@ -1,61 +1,14 @@
 import React from 'react'
 import clsx from 'clsx'
-import { Items, PropsComponentItem } from 'src/types/interface/DrawerBar'
-import DashboardIcon from '@material-ui/icons/Dashboard'
-import MailIcon from '@material-ui/icons/Mail'
-import { StarBorder } from '@material-ui/icons'
-import { Divider, Theme, createStyles, List } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Divider, List } from '@material-ui/core'
 import { useLocation, NavLink } from 'react-router-dom'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import HoverMenu from 'src/components/HoverMenu'
 import ListItemText from '@material-ui/core/ListItemText'
 import MenuItem from '@material-ui/core/MenuItem'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    toolbar: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      // ...theme.mixins.toolbar,
-      height: 50
-    },
-    nested: {
-      paddingLeft: theme.spacing(4)
-    },
-    backgroundCurrentMenu: {
-      background: '#dadada'
-    }
-  })
-)
-
-const items: Items[] = [
-  {
-    text: 'Dashboard',
-    icon: DashboardIcon,
-    href: '/dashboard'
-  },
-  {
-    text: 'mails',
-    icon: MailIcon,
-    children: [
-      {
-        text: 'Example',
-        icon: StarBorder,
-        href: '/example'
-      },
-      {
-        text: 'Test',
-        icon: StarBorder,
-        href: '/test'
-      }
-    ]
-  }
-]
+import { drawerStyles, drawerItems } from './config'
+import { PropsComponentItem } from 'src/types/interface/DrawerBar'
 
 const ComponentItem = (props: PropsComponentItem) => {
   const [mouseOverItem, setMouseOverItem] = React.useState(false)
@@ -69,17 +22,10 @@ const ComponentItem = (props: PropsComponentItem) => {
     setMouseOverItem(true)
     setAnchorEl(event.currentTarget)
   }
-  const leaveItem = (): void => {
-    setMouseOverItem(false)
-  }
-  const enterMenu = (): void => {
-    setMouseOverMenu(true)
-  }
-  const leaveMenu = (): void => {
-    setMouseOverMenu(false)
-  }
-
-  const handlerClassMenu = (): void => {
+  const leaveItem = (): void => setMouseOverItem(false)
+  const enterMenu = (): void => setMouseOverMenu(true)
+  const leaveMenu = (): void => setMouseOverMenu(false)
+  const closeMenu = (): void => {
     setMouseOverItem(false)
     setMouseOverMenu(false)
   }
@@ -98,7 +44,7 @@ const ComponentItem = (props: PropsComponentItem) => {
           elevation={1}
           open={isOpen}
           anchorEl={anchorEl}
-          onClose={handlerClassMenu}
+          onClose={closeMenu}
           MenuListProps={{
             onMouseEnter: enterMenu,
             onMouseLeave: leaveMenu,
@@ -109,7 +55,7 @@ const ComponentItem = (props: PropsComponentItem) => {
             horizontal: 'right'
           }}
         >
-          <MenuItem style={{display: 'flex', justifyContent: 'center'}}>
+          <MenuItem style={{ display: 'flex', justifyContent: 'center' }}>
             {props.text}
           </MenuItem>
           <Divider />
@@ -120,9 +66,9 @@ const ComponentItem = (props: PropsComponentItem) => {
                 button
                 component={NavLink}
                 to={subItem.href}
-                onClick={handlerClassMenu}
+                onClick={closeMenu}
               >
-                <ListItemIcon style={{minWidth: 30}}>
+                <ListItemIcon style={{ minWidth: 30 }}>
                   <subItem.icon fontSize={'small'} />
                 </ListItemIcon>
                 <ListItemText>{subItem.text}</ListItemText>
@@ -136,12 +82,12 @@ const ComponentItem = (props: PropsComponentItem) => {
 }
 
 const SidebarMenu = () => {
-  const classes = useStyles()
+  const classes = drawerStyles()
   const currentPath = useLocation().pathname
 
   return (
     <List disablePadding>
-      {items.map((item, index) => {
+      {drawerItems.map((item, index) => {
         return (
           <div
             key={item.text}
@@ -156,7 +102,7 @@ const SidebarMenu = () => {
 }
 
 function DrawerBarCompact() {
-  const classes = useStyles()
+  const classes = drawerStyles()
 
   return (
     <div>
