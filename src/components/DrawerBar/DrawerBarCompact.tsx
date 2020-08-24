@@ -8,9 +8,9 @@ import HoverMenu from 'src/components/HoverMenu'
 import ListItemText from '@material-ui/core/ListItemText'
 import MenuItem from '@material-ui/core/MenuItem'
 import { drawerStyles, drawerItems } from './config'
-import { PropsComponentItem, PropsListItemChildren } from 'src/types/interface/DrawerBar'
+import { PropsComponentItem, PropsListItemChildren, PropsHoverItem } from 'src/types/interface/DrawerBar'
 
-const ListItemChildren = (props: PropsListItemChildren) => {
+const ItemChildren = (props: PropsListItemChildren) => {
   return (
     <ListItem
       button
@@ -26,31 +26,62 @@ const ListItemChildren = (props: PropsListItemChildren) => {
   )
 }
 
-const ComponentItem = (props: PropsComponentItem) => {
-  const classes = drawerStyles()
-  const currentPath = useLocation().pathname
-  const isPath = (props.href === currentPath) || (props.children?.some(child => child.href === currentPath))
-
-  const [mouseOverItem, setMouseOverItem] = React.useState(false)
+const HoverItem = (props: PropsHoverItem) => {
   const [mouseOverMenu, setMouseOverMenu] = React.useState(false)
+  const enterMenu = (): void => setMouseOverMenu(true)
+  const leaveMenu = (): void => setMouseOverMenu(false)
+  const closeMenu = (): void => {
+    setMouseOverMenu(false)
+    props.closeMenu()
+  }
+
+  const isOpen = mouseOverMenu || props.mouseOverItem
+
+  return (
+    <HoverMenu
+      elevation={1}
+      open={isOpen}
+      anchorEl={props.anchorEl}
+      onClose={closeMenu}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      MenuListProps={{ onMouseEnter: enterMenu, onMouseLeave: leaveMenu, disablePadding: true }}
+    >
+      <MenuItem
+        button={true}
+        component={props.href ? NavLink : 'div'}
+        to={props.href}
+        style={{ display: 'flex', justifyContent: 'center', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+        onClick={closeMenu}
+      >
+        {props.text}
+      </MenuItem>
+      <Divider />
+      {
+        props.children?.map((subItem, index) =>
+          <ItemChildren {...subItem} closeMenu={closeMenu} key={index} />
+        )
+      }
+    </HoverMenu>
+  )
+}
+
+const ItemComponent = (props: PropsComponentItem) => {
+  const [mouseOverItem, setMouseOverItem] = React.useState(false)
   const [anchorEl, setAnchorEl] = React.useState(null)
-
-  let propsListItem: any = { button: true }
-  if (props.href) propsListItem = { ...propsListItem, component: NavLink, to: props.href }
-
+  const leaveItem = (): void => setMouseOverItem(false)
+  const closeMenu = (): void => setMouseOverItem(false)
   const enterItem = (event: any): void => {
     setMouseOverItem(true)
     setAnchorEl(event.currentTarget)
   }
-  const leaveItem = (): void => setMouseOverItem(false)
-  const enterMenu = (): void => setMouseOverMenu(true)
-  const leaveMenu = (): void => setMouseOverMenu(false)
-  const closeMenu = (): void => {
-    setMouseOverItem(false)
-    setMouseOverMenu(false)
-  }
 
-  const isOpen = mouseOverMenu || mouseOverItem
+  const classes = drawerStyles()
+  const currentPath = useLocation().pathname
+  const itemHrefInsideCurrentPath = (props.href === currentPath) ||
+                                    (props.children?.some(child => child.href === currentPath))
+
+  let propsListItem: any = { button: true }
+  if (props.href) propsListItem = { ...propsListItem, component: NavLink, to: props.href }
 
   return (
     <div>
@@ -58,35 +89,12 @@ const ComponentItem = (props: PropsComponentItem) => {
         onMouseEnter={enterItem}
         onMouseLeave={leaveItem}
         {...propsListItem}
-        className={clsx({[classes.backgroundCurrentMenu]: isPath})}
+        className={clsx({ [classes.backgroundCurrentMenu]: itemHrefInsideCurrentPath })}
       >
-        <ListItemIcon >
+        <ListItemIcon>
           <props.icon fontSize={'small'} />
         </ListItemIcon>
-        <HoverMenu
-          elevation={1}
-          open={isOpen}
-          anchorEl={anchorEl}
-          onClose={closeMenu}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          MenuListProps={{ onMouseEnter: enterMenu, onMouseLeave: leaveMenu, disablePadding: true }}
-        >
-          <MenuItem
-            button={true}
-            component={props.href ? NavLink : 'div'}
-            to={props.href}
-            style={{ display: 'flex', justifyContent: 'center', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
-            onClick={closeMenu}
-          >
-            {props.text}
-          </MenuItem>
-          <Divider />
-          {
-            props.children?.map((subItem, index) =>
-              <ListItemChildren {...subItem} closeMenu={closeMenu} key={index} />
-            )
-          }
-        </HoverMenu>
+        <HoverItem closeMenu={closeMenu} anchorEl={anchorEl} mouseOverItem={mouseOverItem} {...props} />
       </ListItem>
     </div>
   )
@@ -104,7 +112,7 @@ const SidebarMenu = () => {
             key={item.text}
             className={clsx({ [classes.backgroundCurrentMenu]: currentPath === item.href })}
           >
-            <ComponentItem {...item} key={index} />
+            <ItemComponent {...item} key={index} />
           </div>
         )
       })}

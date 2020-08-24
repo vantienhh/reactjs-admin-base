@@ -24,8 +24,12 @@ export interface PropsComponentItem extends Items {
 }
 
 // COMPACT
-export interface PropsListItemChildren extends Item{
+export interface PropsListItemChildren extends Item {
   closeMenu(): void
 }
-export interface PropsTreeViewItemChildren {
+
+export interface PropsHoverItem extends PropsComponentItem {
+  mouseOverItem: boolean
+  anchorEl: any
+  closeMenu(): void
 }
