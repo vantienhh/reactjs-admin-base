@@ -19,6 +19,4 @@ function HoverMenu(props: MenuProps) {
   )
 }
 
-// TODO fix findDOMNode is deprecated in StrictMode
 export default React.forwardRef((props: MenuProps, ref) => <HoverMenu {...props} ref={ref} />)
-

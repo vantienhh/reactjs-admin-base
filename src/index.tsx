@@ -4,24 +4,40 @@ import { BrowserRouter } from 'react-router-dom'
 import { CookiesProvider } from 'react-cookie'
 import * as serviceWorker from './serviceWorker'
 import Routes from 'src/routes'
+import { unstable_createMuiStrictModeTheme, ThemeProvider } from '@material-ui/core/styles'
 
+const theme = unstable_createMuiStrictModeTheme()
 const elementRoot: HTMLElement | null = document.getElementById('root')
-
 let renderMethod: Renderer = (elementRoot && elementRoot.innerHTML !== '') ? ReactDOM.hydrate : ReactDOM.render
 
-const AppRoot = () => {
+const AppRootDev = () => {
   return (
-    <React.StrictMode>
-      <CookiesProvider>
-        <BrowserRouter>
-          <Routes />
-        </BrowserRouter>
-      </CookiesProvider>
+    <React.StrictMode> // DEV
+      <ThemeProvider theme={theme}> // DEV (để loại trừ bớt warning: findDOMNode is deprecated in StrictMode )
+        <CookiesProvider>
+          <BrowserRouter>
+            <Routes />
+          </BrowserRouter>
+        </CookiesProvider>
+      </ThemeProvider>
     </React.StrictMode>
   )
 }
 
-renderMethod(<AppRoot />, elementRoot)
+const AppRoot = () => {
+  return (
+    <CookiesProvider>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </CookiesProvider>
+  )
+}
+
+renderMethod(
+   process.env.NODE_ENV === 'production' ? <AppRoot /> : <AppRootDev />,
+  elementRoot
+)
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
