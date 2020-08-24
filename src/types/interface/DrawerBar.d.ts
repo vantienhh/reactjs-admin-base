@@ -23,6 +23,9 @@ export interface PropsItemChildren extends PropsWithChildren {
 export interface PropsComponentItem extends Items {
 }
 
+// COMPACT
+export interface PropsListItemChildren extends Item{
+  closeMenu(): void
+}
 export interface PropsTreeViewItemChildren {
-
 }

@@ -8,7 +8,23 @@ import HoverMenu from 'src/components/HoverMenu'
 import ListItemText from '@material-ui/core/ListItemText'
 import MenuItem from '@material-ui/core/MenuItem'
 import { drawerStyles, drawerItems } from './config'
-import { PropsComponentItem } from 'src/types/interface/DrawerBar'
+import { PropsComponentItem, PropsListItemChildren } from 'src/types/interface/DrawerBar'
+
+const ListItemChildren = (props: PropsListItemChildren) => {
+  return (
+    <ListItem
+      button
+      component={NavLink}
+      to={props.href}
+      onClick={props.closeMenu}
+    >
+      <ListItemIcon style={{ minWidth: 30 }}>
+        <props.icon fontSize={'small'} />
+      </ListItemIcon>
+      <ListItemText>{props.text}</ListItemText>
+    </ListItem>
+  )
+}
 
 const ComponentItem = (props: PropsComponentItem) => {
   const [mouseOverItem, setMouseOverItem] = React.useState(false)
@@ -34,45 +50,29 @@ const ComponentItem = (props: PropsComponentItem) => {
 
   return (
     <div>
-      <ListItem
-        {...propsListItem}
-        onMouseEnter={enterItem}
-        onMouseLeave={leaveItem}
-      >
+      <ListItem onMouseEnter={enterItem} onMouseLeave={leaveItem} {...propsListItem}>
         <ListItemIcon>{<props.icon fontSize={'small'} />}</ListItemIcon>
         <HoverMenu
           elevation={1}
           open={isOpen}
           anchorEl={anchorEl}
           onClose={closeMenu}
-          MenuListProps={{
-            onMouseEnter: enterMenu,
-            onMouseLeave: leaveMenu,
-            disablePadding: true
-          }}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right'
-          }}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          MenuListProps={{ onMouseEnter: enterMenu, onMouseLeave: leaveMenu, disablePadding: true }}
         >
-          <MenuItem style={{ display: 'flex', justifyContent: 'center' }}>
+          <MenuItem
+            button={true}
+            component={props.href ? NavLink : 'div'}
+            to={props.href}
+            style={{ display: 'flex', justifyContent: 'center', backgroundColor: "rgba(0, 0, 0, 0.04)" }}
+            onClick={closeMenu}
+          >
             {props.text}
           </MenuItem>
           <Divider />
           {
-            props.children?.map((subItem, index) => (
-              <MenuItem
-                key={index}
-                button
-                component={NavLink}
-                to={subItem.href}
-                onClick={closeMenu}
-              >
-                <ListItemIcon style={{ minWidth: 30 }}>
-                  <subItem.icon fontSize={'small'} />
-                </ListItemIcon>
-                <ListItemText>{subItem.text}</ListItemText>
-              </MenuItem>)
+            props.children?.map((subItem, index) =>
+              <ListItemChildren {...subItem} closeMenu={closeMenu} key={index} />
             )
           }
         </HoverMenu>

@@ -40,12 +40,14 @@ const ComponentItem = (props: PropsComponentItem) => {
   const [open, setOpen] = React.useState(false)
   const handleClick = (): void => setOpen(!open)
 
-  let propsListItem: any = { button: true }
-  if (props.href) propsListItem = { ...propsListItem, component: NavLink, to: props.href }
-
   return (
     <div>
-      <ListItem {...propsListItem} onClick={handleClick}>
+      <ListItem
+        button={true}
+        component={props.href ? NavLink : 'div'}
+        to={props.href}
+        onClick={handleClick}
+      >
         <ListItemIcon>{<props.icon />}</ListItemIcon>
         <ListItemText primary={props.text} />
         {props.children && (open ? <ExpandMoreIcon /> : <ChevronLeftIcon />)}
