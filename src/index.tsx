@@ -10,10 +10,12 @@ const theme = unstable_createMuiStrictModeTheme()
 const elementRoot: HTMLElement | null = document.getElementById('root')
 let renderMethod: Renderer = (elementRoot && elementRoot.innerHTML !== '') ? ReactDOM.hydrate : ReactDOM.render
 
-const AppRootDev = () => {
+const AppRoot = () => {
   return (
-    <React.StrictMode> // DEV
-      <ThemeProvider theme={theme}> // DEV (để loại trừ bớt warning: findDOMNode is deprecated in StrictMode )
+    // DEV
+    <React.StrictMode>
+      {/*DEV (để loại trừ bớt warning: findDOMNode is deprecated in StrictMode )*/}
+      <ThemeProvider theme={theme}>
         <CookiesProvider>
           <BrowserRouter>
             <Routes />
@@ -24,18 +26,8 @@ const AppRootDev = () => {
   )
 }
 
-const AppRoot = () => {
-  return (
-    <CookiesProvider>
-      <BrowserRouter>
-        <Routes />
-      </BrowserRouter>
-    </CookiesProvider>
-  )
-}
-
 renderMethod(
-   process.env.NODE_ENV === 'production' ? <AppRoot /> : <AppRootDev />,
+  <AppRoot />,
   elementRoot
 )
 

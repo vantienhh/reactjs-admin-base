@@ -27,6 +27,10 @@ const ListItemChildren = (props: PropsListItemChildren) => {
 }
 
 const ComponentItem = (props: PropsComponentItem) => {
+  const classes = drawerStyles()
+  const currentPath = useLocation().pathname
+  const isPath = (props.href === currentPath) || (props.children?.some(child => child.href === currentPath))
+
   const [mouseOverItem, setMouseOverItem] = React.useState(false)
   const [mouseOverMenu, setMouseOverMenu] = React.useState(false)
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -50,8 +54,15 @@ const ComponentItem = (props: PropsComponentItem) => {
 
   return (
     <div>
-      <ListItem onMouseEnter={enterItem} onMouseLeave={leaveItem} {...propsListItem}>
-        <ListItemIcon>{<props.icon fontSize={'small'} />}</ListItemIcon>
+      <ListItem
+        onMouseEnter={enterItem}
+        onMouseLeave={leaveItem}
+        {...propsListItem}
+        className={clsx({[classes.backgroundCurrentMenu]: isPath})}
+      >
+        <ListItemIcon >
+          <props.icon fontSize={'small'} />
+        </ListItemIcon>
         <HoverMenu
           elevation={1}
           open={isOpen}
@@ -64,7 +75,7 @@ const ComponentItem = (props: PropsComponentItem) => {
             button={true}
             component={props.href ? NavLink : 'div'}
             to={props.href}
-            style={{ display: 'flex', justifyContent: 'center', backgroundColor: "rgba(0, 0, 0, 0.04)" }}
+            style={{ display: 'flex', justifyContent: 'center', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
             onClick={closeMenu}
           >
             {props.text}
