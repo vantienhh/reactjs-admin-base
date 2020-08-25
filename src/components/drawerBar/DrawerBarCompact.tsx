@@ -1,16 +1,39 @@
 import React from 'react'
 import clsx from 'clsx'
-import { Divider, List } from '@material-ui/core'
+import { Divider, List, createStyles } from '@material-ui/core'
 import { useLocation, NavLink } from 'react-router-dom'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import HoverMenu from 'src/components/HoverMenu'
 import ListItemText from '@material-ui/core/ListItemText'
 import MenuItem from '@material-ui/core/MenuItem'
+import { PropsComponentItem, PropsListItemChildren, PropsTreeViewItem } from 'src/types/DrawerBar'
 import { drawerStyles, drawerItems } from './config'
-import { PropsComponentItem, PropsListItemChildren, PropsHoverItem } from 'src/types/interface/DrawerBar'
+import makeStyles from '@material-ui/core/styles/makeStyles'
+
+const itemChildrenIconStyles =  makeStyles(() =>
+  createStyles({
+    iconWidth: {
+      minWidth: 30
+    }
+  })
+)
+
+const treeViewItemStyles =  makeStyles(() =>
+  createStyles({
+    itemText: {
+      display: 'flex',
+      justifyContent: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.04)'
+    },
+    treeWidth: {
+      width: 150
+    }
+  })
+)
 
 const ItemChildren = (props: PropsListItemChildren) => {
+  const classes = itemChildrenIconStyles()
   return (
     <ListItem
       button
@@ -18,7 +41,7 @@ const ItemChildren = (props: PropsListItemChildren) => {
       to={props.href}
       onClick={props.closeMenu}
     >
-      <ListItemIcon style={{ minWidth: 30 }}>
+      <ListItemIcon className={classes.iconWidth}>
         <props.icon fontSize={'small'} />
       </ListItemIcon>
       <ListItemText>{props.text}</ListItemText>
@@ -26,7 +49,8 @@ const ItemChildren = (props: PropsListItemChildren) => {
   )
 }
 
-const HoverItem = (props: PropsHoverItem) => {
+const TreeViewItem = (props: PropsTreeViewItem) => {
+  const classes = treeViewItemStyles()
   const [mouseOverMenu, setMouseOverMenu] = React.useState(false)
   const enterMenu = (): void => setMouseOverMenu(true)
   const leaveMenu = (): void => setMouseOverMenu(false)
@@ -50,6 +74,7 @@ const HoverItem = (props: PropsHoverItem) => {
         button={true}
         component={props.href ? NavLink : 'div'}
         to={props.href}
+        className={`${classes.treeWidth} ${classes.itemText}`}
         style={{ display: 'flex', justifyContent: 'center', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
         onClick={closeMenu}
       >
@@ -94,7 +119,7 @@ const ItemComponent = (props: PropsComponentItem) => {
         <ListItemIcon>
           <props.icon fontSize={'small'} />
         </ListItemIcon>
-        <HoverItem closeMenu={closeMenu} anchorEl={anchorEl} mouseOverItem={mouseOverItem} {...props} />
+        <TreeViewItem closeMenu={closeMenu} anchorEl={anchorEl} mouseOverItem={mouseOverItem} {...props} />
       </ListItem>
     </div>
   )

@@ -14,8 +14,7 @@ function HoverMenu(props: MenuProps) {
         ...PaperProps
       }}
       {...props}
-    >
-    </Menu>
+    />
   )
 }
 

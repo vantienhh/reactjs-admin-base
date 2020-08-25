@@ -8,7 +8,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { drawerStyles, drawerItems } from './config'
-import { PropsItemChildren, PropsComponentItem } from 'src/types/interface/DrawerBar'
+import { PropsItemChildren, PropsComponentItem } from 'src/types/DrawerBar'
 
 const ItemChildren = (props: PropsItemChildren) => {
   const classes = drawerStyles()

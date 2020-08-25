@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Props } from 'src/types/interface/BaseComponent'
+import { Props } from 'src/types/BaseComponent'
 
 function ServerError(props: Props): React.FunctionComponentElement<Props> {
   function goBack() {

@@ -1,14 +1,14 @@
 import React from 'react'
 import MaterialAppBar from '@material-ui/core/AppBar'
 import MaterialDrawer from '@material-ui/core/Drawer'
-import DrawerBarNormal from 'src/components/DrawerBar/DrawerBarNormal'
-import TopBar from 'src/components/TopBar'
+import DrawerBarNormal from 'src/components/drawerBar/DrawerBarNormal'
+import TopBar from 'src/components/topBar/TopBar'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import clsx from 'clsx'
 import { appRoutes } from 'src/routes/App'
-import DrawerBarCompact from 'src/components/DrawerBar/DrawerBarCompact'
+import DrawerBarCompact from 'src/components/drawerBar/DrawerBarCompact'
 
 const drawerNormalWidth = 240
 const drawerCompactWidth = 50

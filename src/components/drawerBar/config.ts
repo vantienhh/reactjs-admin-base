@@ -1,4 +1,4 @@
-import { Items } from 'src/types/interface/DrawerBar'
+import { Items } from 'src/types/DrawerBar'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import MailIcon from '@material-ui/icons/Mail'
 import { StarBorder } from '@material-ui/icons'

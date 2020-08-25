@@ -1,5 +1,5 @@
 import React from 'react'
-import { Props } from 'src/types/interface/BaseComponent'
+import { Props } from 'src/types/BaseComponent'
 
 function Unauthorized(): React.FunctionComponentElement<Props> {
   return (
