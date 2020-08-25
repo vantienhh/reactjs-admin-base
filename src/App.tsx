@@ -5,10 +5,11 @@ import DrawerBarNormal from 'src/components/drawerBar/DrawerBarNormal'
 import TopBar from 'src/components/topBar/TopBar'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect, useLocation } from 'react-router-dom'
 import clsx from 'clsx'
 import { appRoutes } from 'src/routes/App'
 import DrawerBarCompact from 'src/components/drawerBar/DrawerBarCompact'
+import { IRouter } from 'src/types'
 
 const drawerNormalWidth = 240
 const drawerCompactWidth = 50
@@ -19,27 +20,19 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex'
     },
     topBar: {
-      zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen
-      })
+      zIndex: theme.zIndex.drawer + 1
+      // transition: theme.transitions.create(['width', 'margin'], {
+      //   easing: theme.transitions.easing.sharp,
+      //   duration: theme.transitions.duration.leavingScreen
+      // })
     },
     topBarShort: {
       marginLeft: drawerNormalWidth,
-      width: `calc(100% - ${drawerNormalWidth}px)`,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen
-      })
+      width: `calc(100% - ${drawerNormalWidth}px)`
     },
     topBarLong: {
       marginLeft: drawerNormalWidth,
-      width: `calc(100% - ${drawerCompactWidth}px)`,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen
-      })
+      width: `calc(100% - ${drawerCompactWidth}px)`
     },
     toolbar: {
       display: 'flex',
@@ -57,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const styleDrawerNormal= makeStyles((theme: Theme) =>
+const styleDrawerNormal = makeStyles(() =>
   createStyles({
     drawer: {
       width: drawerNormalWidth,
@@ -65,16 +58,12 @@ const styleDrawerNormal= makeStyles((theme: Theme) =>
       whiteSpace: 'nowrap'
     },
     pager: {
-      width: drawerNormalWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen
-      })
+      width: drawerNormalWidth
     }
   })
 )
 
-const styleDrawerCompact = makeStyles((theme: Theme) =>
+const styleDrawerCompact = makeStyles(() =>
   createStyles({
     drawer: {
       width: drawerCompactWidth,
@@ -82,13 +71,9 @@ const styleDrawerCompact = makeStyles((theme: Theme) =>
       whiteSpace: 'nowrap'
     },
     pager: {
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen
-      }),
       overflowX: 'hidden',
       width: drawerCompactWidth
-    },
+    }
   })
 )
 
@@ -119,7 +104,7 @@ function MaterialDrawerBarCompact() {
   )
 }
 
-function App() {
+function ComponentAppPassAuth() {
   const classes = useStyles()
   const [isOpenDrawer, setOpen] = React.useState(false)
   const handleDrawer = (): void => setOpen(!isOpenDrawer)
@@ -158,6 +143,23 @@ function App() {
       </main>
     </div>
   )
+}
+
+function App() {
+  const currentPath = useLocation().pathname
+  const router = appRoutes.filter(router => router.path === currentPath)
+
+  if (router.length) {
+    if (checkAuthenticate(router[0])) {
+      return (<ComponentAppPassAuth />)
+    }
+    return (<Redirect to="/errors/401" />)
+  }
+  return (<Redirect to="/errors/404" />)
+}
+
+function checkAuthenticate(route: IRouter): boolean {
+  return true
 }
 
 export default App

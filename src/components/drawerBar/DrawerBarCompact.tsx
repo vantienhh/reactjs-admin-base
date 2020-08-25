@@ -11,7 +11,7 @@ import { PropsComponentItem, PropsListItemChildren, PropsTreeViewItem } from 'sr
 import { drawerStyles, drawerItems } from './config'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 
-const itemChildrenIconStyles =  makeStyles(() =>
+const itemChildrenIconStyles = makeStyles(() =>
   createStyles({
     iconWidth: {
       minWidth: 30
@@ -19,7 +19,7 @@ const itemChildrenIconStyles =  makeStyles(() =>
   })
 )
 
-const treeViewItemStyles =  makeStyles(() =>
+const treeViewItemStyles = makeStyles(() =>
   createStyles({
     itemText: {
       display: 'flex',

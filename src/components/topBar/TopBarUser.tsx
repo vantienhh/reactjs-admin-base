@@ -43,7 +43,12 @@ const TopBarUser = () => {
         getContentAnchorEl={null}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       >
-        <MenuItem component={NavLink} to={'/example'} onClick={closeMenu} className={classes.menuItem}>Profile</MenuItem>
+        <MenuItem
+          component={NavLink}
+          to={'/example'}
+          onClick={closeMenu}
+          className={classes.menuItem}
+        >Profile</MenuItem>
         <MenuItem component={NavLink} to={'/test'} onClick={closeMenu} className={classes.menuItem}>Setting</MenuItem>
         <Divider />
         <MenuItem component={NavLink} to={'/test'} onClick={closeMenu} className={classes.menuItem}>Log Out</MenuItem>

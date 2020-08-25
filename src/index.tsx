@@ -6,11 +6,12 @@ import * as serviceWorker from './serviceWorker'
 import Routes from 'src/routes'
 import { unstable_createMuiStrictModeTheme, ThemeProvider } from '@material-ui/core/styles'
 
-const theme = unstable_createMuiStrictModeTheme()
 const elementRoot: HTMLElement | null = document.getElementById('root')
 let renderMethod: Renderer = (elementRoot && elementRoot.innerHTML !== '') ? ReactDOM.hydrate : ReactDOM.render
 
 const AppRoot = () => {
+  const theme = unstable_createMuiStrictModeTheme({})
+
   return (
     // DEV
     <React.StrictMode>

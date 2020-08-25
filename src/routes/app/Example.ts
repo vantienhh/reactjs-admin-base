@@ -5,11 +5,13 @@ export default [
   {
     path: '/example',
     exact: true,
-    component: Example
+    component: Example,
+    auth: true
   },
   {
     path: '/test',
     exact: true,
-    component: Test
+    component: Test,
+    auth: true
   }
 ]
