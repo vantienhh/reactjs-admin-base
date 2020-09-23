@@ -7,7 +7,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { drawerStyles, drawerItems } from './config'
 import { PropsItemChildren, PropsComponentItem } from 'src/types/DrawerBar'
 
-const ItemChildren = (props: PropsItemChildren) => {
+function ItemChildren(props: PropsItemChildren): React.FunctionComponentElement<PropsItemChildren> {
   const classes = drawerStyles()
   const currentPath = useLocation().pathname
 
@@ -25,7 +25,7 @@ const ItemChildren = (props: PropsItemChildren) => {
   )
 }
 
-const ComponentItem = (props: PropsComponentItem) => {
+function ComponentItem(props: PropsComponentItem): React.FunctionComponentElement<PropsComponentItem> {
   const [open, setOpen] = React.useState(false)
   const handleClick = (): void => setOpen(!open)
 
@@ -41,7 +41,7 @@ const ComponentItem = (props: PropsComponentItem) => {
   )
 }
 
-const SidebarMenu = () => {
+function SidebarMenu(): React.FunctionComponentElement<{}> {
   const classes = drawerStyles()
   const currentPath = useLocation().pathname
 
@@ -58,7 +58,7 @@ const SidebarMenu = () => {
   )
 }
 
-export const DrawerBarNormal = () => {
+export function DrawerBarNormal(): React.FunctionComponentElement<{}> {
   const classes = drawerStyles()
 
   return (

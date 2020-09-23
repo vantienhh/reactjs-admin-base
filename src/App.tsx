@@ -2,8 +2,7 @@ import React from 'react'
 import clsx from 'clsx'
 import { IRouter } from 'src/types'
 import { appRoutes } from 'src/routes/App'
-import { TopBar } from 'src/components/topBar'
-import { DrawerBarNormal, DrawerBarCompact } from 'src/components/drawerBar'
+import { DrawerBarNormal, DrawerBarCompact, TopBar } from 'src/components'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Route, Switch, Redirect, useLocation } from 'react-router-dom'
 import { CssBaseline, AppBar as MaterialAppBar, Drawer as MaterialDrawer } from '@material-ui/core'
@@ -74,7 +73,7 @@ const styleDrawerCompact = makeStyles(() =>
   })
 )
 
-function MaterialDrawerBarNormal() {
+function MaterialDrawerBarNormal(): React.FunctionComponentElement<{}> {
   const classes = styleDrawerNormal()
   return (
     <MaterialDrawer
@@ -87,7 +86,7 @@ function MaterialDrawerBarNormal() {
   )
 }
 
-function MaterialDrawerBarCompact() {
+function MaterialDrawerBarCompact(): React.FunctionComponentElement<{}> {
   const classes = styleDrawerCompact()
 
   return (
@@ -101,7 +100,7 @@ function MaterialDrawerBarCompact() {
   )
 }
 
-function ComponentAppPassAuth() {
+function ComponentAppPassAuth(): React.FunctionComponentElement<{}> {
   const classes = useStyles()
   const [isOpenDrawer, setOpen] = React.useState(false)
   const handleDrawer = (): void => setOpen(!isOpenDrawer)
@@ -141,7 +140,7 @@ function checkAuthenticate(route: IRouter): boolean {
   return true
 }
 
-export function App() {
+export function App(): React.FunctionComponentElement<{}> {
   const currentPath = useLocation().pathname
   const router = appRoutes.filter((router) => router.path === currentPath)
 

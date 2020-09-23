@@ -28,7 +28,7 @@ const treeViewItemStyles = makeStyles(() =>
   })
 )
 
-const ItemChildren = (props: PropsListItemChildren) => {
+function ItemChildren(props: PropsListItemChildren): React.FunctionComponentElement<PropsListItemChildren> {
   const classes = itemChildrenIconStyles()
   return (
     <ListItem button component={NavLink} to={props.href} onClick={props.closeMenu}>
@@ -40,7 +40,7 @@ const ItemChildren = (props: PropsListItemChildren) => {
   )
 }
 
-const TreeViewItem = (props: PropsTreeViewItem) => {
+function TreeViewItem(props: PropsTreeViewItem): React.FunctionComponentElement<PropsTreeViewItem> {
   const classes = treeViewItemStyles()
   const [mouseOverMenu, setMouseOverMenu] = React.useState(false)
   const enterMenu = (): void => setMouseOverMenu(true)
@@ -79,12 +79,12 @@ const TreeViewItem = (props: PropsTreeViewItem) => {
   )
 }
 
-const ItemComponent = (props: PropsComponentItem) => {
+function ItemComponent(props: PropsComponentItem): React.FunctionComponentElement<PropsComponentItem> {
   const [mouseOverItem, setMouseOverItem] = React.useState(false)
-  const [anchorEl, setAnchorEl] = React.useState(null)
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const leaveItem = (): void => setMouseOverItem(false)
   const closeMenu = (): void => setMouseOverItem(false)
-  const enterItem = (event: any): void => {
+  const enterItem = (event: React.MouseEvent<HTMLButtonElement>): void => {
     setMouseOverItem(true)
     setAnchorEl(event.currentTarget)
   }
@@ -114,7 +114,7 @@ const ItemComponent = (props: PropsComponentItem) => {
   )
 }
 
-const SidebarMenu = () => {
+function SidebarMenu(): React.FunctionComponentElement<{}> {
   const classes = drawerStyles()
   const currentPath = useLocation().pathname
 
@@ -131,7 +131,7 @@ const SidebarMenu = () => {
   )
 }
 
-export function DrawerBarCompact() {
+export function DrawerBarCompact(): React.FunctionComponentElement<{}> {
   const classes = drawerStyles()
 
   return (

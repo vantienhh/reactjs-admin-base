@@ -1,7 +1,7 @@
 import React from 'react'
 import { MenuProps, Menu } from '@material-ui/core'
 
-function HoverMenuComponent(props: MenuProps) {
+function HoverMenuComponent(props: MenuProps): React.FunctionComponentElement<MenuProps> {
   const { style, PaperProps, ref } = props
 
   return (

@@ -1,5 +1,5 @@
 import React from 'react'
 
-export function Dashboard(): React.FunctionComponentElement<any> {
+export function Dashboard(): React.FunctionComponentElement<{}> {
   return <strong>Dashboard</strong>
 }

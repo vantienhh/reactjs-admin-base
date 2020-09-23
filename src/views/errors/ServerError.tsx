@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Props } from 'src/types/BaseComponent'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import { createStyles } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
@@ -17,7 +16,7 @@ const styles = makeStyles(() =>
   })
 )
 
-export function ServerError(): React.FunctionComponentElement<Props> {
+export function ServerError(): React.FunctionComponentElement<{}> {
   const classes = styles()
 
   return (

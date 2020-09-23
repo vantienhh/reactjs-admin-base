@@ -8,7 +8,7 @@ import Routes from 'src/routes'
 
 import './plugins/i18n'
 
-const AppRoot = () => {
+function AppRoot(): React.FunctionComponentElement<{}> {
   const theme = unstable_createMuiStrictModeTheme({})
 
   const App = () => (

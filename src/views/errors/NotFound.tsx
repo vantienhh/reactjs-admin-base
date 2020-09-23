@@ -1,5 +1,4 @@
 import React from 'react'
-import { Props } from 'src/types/BaseComponent'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import { createStyles } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
@@ -17,7 +16,7 @@ const styles = makeStyles(() =>
   })
 )
 
-export function NotFound(): React.FunctionComponentElement<Props> {
+export function NotFound(): React.FunctionComponentElement<{}> {
   const classes = styles()
 
   return (
