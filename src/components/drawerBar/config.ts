@@ -2,8 +2,7 @@ import { Items } from 'src/types/DrawerBar'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import MailIcon from '@material-ui/icons/Mail'
 import { StarBorder } from '@material-ui/icons'
-import { makeStyles } from '@material-ui/core/styles'
-import { Theme, createStyles } from '@material-ui/core'
+import { Theme, makeStyles, createStyles } from '@material-ui/core'
 
 export const drawerStyles = makeStyles((theme: Theme) =>
   createStyles({

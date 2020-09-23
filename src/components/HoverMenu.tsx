@@ -1,6 +1,5 @@
 import React from 'react'
-import Menu from '@material-ui/core/Menu'
-import { MenuProps } from '@material-ui/core'
+import { MenuProps, Menu } from '@material-ui/core'
 
 function HoverMenuComponent(props: MenuProps) {
   const { style, PaperProps, ref } = props

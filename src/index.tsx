@@ -11,16 +11,23 @@ import './plugins/i18n'
 const AppRoot = () => {
   const theme = unstable_createMuiStrictModeTheme({})
 
+  const App = () => (
+    <CookiesProvider>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </CookiesProvider>
+  )
+
+  if (process.env.NODE_ENV === 'production') {
+    return <App />
+  }
+
   return (
-    // DEV
     <React.StrictMode>
-      {/*DEV (để loại trừ bớt warning: findDOMNode is deprecated in StrictMode )*/}
+      {/*để loại trừ bớt warning: findDOMNode is deprecated in StrictMode*/}
       <ThemeProvider theme={theme}>
-        <CookiesProvider>
-          <BrowserRouter>
-            <Routes />
-          </BrowserRouter>
-        </CookiesProvider>
+        <App />
       </ThemeProvider>
     </React.StrictMode>
   )

@@ -36,7 +36,6 @@ module.exports = {
     }
   },
   rules: {
-    '@typescript-eslint/semi': 'off',
     'arrow-body-style': 'off',
     'comma-dangle': 'off',
     'import/no-unresolved': 'off',
