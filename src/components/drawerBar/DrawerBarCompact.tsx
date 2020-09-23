@@ -4,7 +4,7 @@ import { Divider, List, createStyles } from '@material-ui/core'
 import { useLocation, NavLink } from 'react-router-dom'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
-import HoverMenu from 'src/components/HoverMenu'
+import { HoverMenu } from 'src/components/HoverMenu'
 import ListItemText from '@material-ui/core/ListItemText'
 import MenuItem from '@material-ui/core/MenuItem'
 import { PropsComponentItem, PropsListItemChildren, PropsTreeViewItem } from 'src/types/DrawerBar'
@@ -35,12 +35,7 @@ const treeViewItemStyles = makeStyles(() =>
 const ItemChildren = (props: PropsListItemChildren) => {
   const classes = itemChildrenIconStyles()
   return (
-    <ListItem
-      button
-      component={NavLink}
-      to={props.href}
-      onClick={props.closeMenu}
-    >
+    <ListItem button component={NavLink} to={props.href} onClick={props.closeMenu}>
       <ListItemIcon className={classes.iconWidth}>
         <props.icon fontSize={'small'} />
       </ListItemIcon>
@@ -81,11 +76,9 @@ const TreeViewItem = (props: PropsTreeViewItem) => {
         {props.text}
       </MenuItem>
       <Divider />
-      {
-        props.children?.map((subItem, index) =>
-          <ItemChildren {...subItem} closeMenu={closeMenu} key={index} />
-        )
-      }
+      {props.children?.map((subItem, index) => (
+        <ItemChildren {...subItem} closeMenu={closeMenu} key={index} />
+      ))}
     </HoverMenu>
   )
 }
@@ -102,8 +95,8 @@ const ItemComponent = (props: PropsComponentItem) => {
 
   const classes = drawerStyles()
   const currentPath = useLocation().pathname
-  const itemHrefInsideCurrentPath = (props.href === currentPath) ||
-                                    (props.children?.some(child => child.href === currentPath))
+  const itemHrefInsideCurrentPath =
+    props.href === currentPath || props.children?.some((child) => child.href === currentPath)
 
   let propsListItem: any = { button: true }
   if (props.href) propsListItem = { ...propsListItem, component: NavLink, to: props.href }
@@ -133,10 +126,7 @@ const SidebarMenu = () => {
     <List disablePadding>
       {drawerItems.map((item, index) => {
         return (
-          <div
-            key={item.text}
-            className={clsx({ [classes.backgroundCurrentMenu]: currentPath === item.href })}
-          >
+          <div key={item.text} className={clsx({ [classes.backgroundCurrentMenu]: currentPath === item.href })}>
             <ItemComponent {...item} key={index} />
           </div>
         )
@@ -145,7 +135,7 @@ const SidebarMenu = () => {
   )
 }
 
-function DrawerBarCompact() {
+export function DrawerBarCompact() {
   const classes = drawerStyles()
 
   return (
@@ -158,5 +148,3 @@ function DrawerBarCompact() {
     </div>
   )
 }
-
-export default DrawerBarCompact

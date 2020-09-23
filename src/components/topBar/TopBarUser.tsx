@@ -15,7 +15,7 @@ export const menuItemStyles = makeStyles(() =>
   })
 )
 
-const TopBarUser = () => {
+export const TopBarUser = () => {
   const classes = menuItemStyles()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const [open, setOpen] = React.useState(false)
@@ -43,18 +43,17 @@ const TopBarUser = () => {
         getContentAnchorEl={null}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       >
-        <MenuItem
-          component={NavLink}
-          to={'/example'}
-          onClick={closeMenu}
-          className={classes.menuItem}
-        >Profile</MenuItem>
-        <MenuItem component={NavLink} to={'/test'} onClick={closeMenu} className={classes.menuItem}>Setting</MenuItem>
+        <MenuItem component={NavLink} to={'/example'} onClick={closeMenu} className={classes.menuItem}>
+          Profile
+        </MenuItem>
+        <MenuItem component={NavLink} to={'/test'} onClick={closeMenu} className={classes.menuItem}>
+          Setting
+        </MenuItem>
         <Divider />
-        <MenuItem component={NavLink} to={'/test'} onClick={closeMenu} className={classes.menuItem}>Log Out</MenuItem>
+        <MenuItem component={NavLink} to={'/test'} onClick={closeMenu} className={classes.menuItem}>
+          Log Out
+        </MenuItem>
       </Menu>
     </span>
   )
 }
-
-export default TopBarUser

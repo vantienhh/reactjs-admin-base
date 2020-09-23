@@ -1,19 +1,33 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Props } from 'src/types/BaseComponent'
+import makeStyles from '@material-ui/core/styles/makeStyles'
+import { createStyles } from '@material-ui/core'
+import Button from '@material-ui/core/Button'
 
-function ServerError(props: Props): React.FunctionComponentElement<Props> {
-  function goBack() {
-    props.history.goBack()
-  }
+const styles = makeStyles(() =>
+  createStyles({
+    container: {
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }
+  })
+)
+
+export function ServerError(): React.FunctionComponentElement<Props> {
+  const classes = styles()
 
   return (
-    <div>
-      <h1>500 - SERVER ERROR</h1>
-      <Link to="/errors/404">đến not found</Link>
-      <button onClick={goBack}>Go Back</button>
+    <div className={classes.container}>
+      <h1>500! SERVER ERROR</h1>
+      <Button variant="outlined" color="primary">
+        <Link to="/" style={{ color: 'black', textDecoration: 'none' }}>
+          Go Home
+        </Link>
+      </Button>
     </div>
   )
 }
-
-export default ServerError

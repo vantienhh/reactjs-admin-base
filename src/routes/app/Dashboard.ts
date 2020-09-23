@@ -1,4 +1,4 @@
-import Dashboard from 'src/views/dashboard/dashboard'
+import { Dashboard } from 'src/views/dashboard'
 
 export default [
   {

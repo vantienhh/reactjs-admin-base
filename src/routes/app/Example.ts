@@ -1,5 +1,4 @@
-import Example from 'src/views/examples/Example'
-import Test from 'src/views/examples/Test'
+import { Example, Test } from 'src/views/examples'
 
 export default [
   {

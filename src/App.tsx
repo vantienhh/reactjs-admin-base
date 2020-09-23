@@ -1,14 +1,13 @@
 import React from 'react'
 import MaterialAppBar from '@material-ui/core/AppBar'
 import MaterialDrawer from '@material-ui/core/Drawer'
-import DrawerBarNormal from 'src/components/drawerBar/DrawerBarNormal'
-import TopBar from 'src/components/topBar/TopBar'
+import { DrawerBarNormal, DrawerBarCompact } from 'src/components/drawerBar'
+import { TopBar } from 'src/components/topBar'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Route, Switch, Redirect, useLocation } from 'react-router-dom'
 import clsx from 'clsx'
 import { appRoutes } from 'src/routes/App'
-import DrawerBarCompact from 'src/components/drawerBar/DrawerBarCompact'
 import { IRouter } from 'src/types'
 
 const drawerNormalWidth = 240
@@ -128,16 +127,9 @@ function ComponentAppPassAuth() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Switch>
-          {
-            appRoutes.map((router, index) =>
-              <Route
-                key={index}
-                path={router.path}
-                exact={router.exact}
-                component={router.component}
-              />
-            )
-          }
+          {appRoutes.map((router, index) => (
+            <Route key={index} path={router.path} exact={router.exact} component={router.component} />
+          ))}
           <Route render={() => <Redirect to="/errors/404" />} />
         </Switch>
       </main>
@@ -145,21 +137,21 @@ function ComponentAppPassAuth() {
   )
 }
 
-function App() {
-  const currentPath = useLocation().pathname
-  const router = appRoutes.filter(router => router.path === currentPath)
-
-  if (router.length) {
-    if (checkAuthenticate(router[0])) {
-      return (<ComponentAppPassAuth />)
-    }
-    return (<Redirect to="/errors/401" />)
-  }
-  return (<Redirect to="/errors/404" />)
-}
-
 function checkAuthenticate(route: IRouter): boolean {
+  console.log('route', route)
+  // check Authenticate
   return true
 }
 
-export default App
+export function App() {
+  const currentPath = useLocation().pathname
+  const router = appRoutes.filter((router) => router.path === currentPath)
+
+  if (router.length) {
+    if (checkAuthenticate(router[0])) {
+      return <ComponentAppPassAuth />
+    }
+    return <Redirect to="/errors/401" />
+  }
+  return <Redirect to="/errors/404" />
+}

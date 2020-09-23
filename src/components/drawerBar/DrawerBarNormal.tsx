@@ -16,17 +16,9 @@ const ItemChildren = (props: PropsItemChildren) => {
 
   return (
     <List disablePadding hidden={!props.open}>
-      {props.children.map(item => (
-        <div
-          key={item.text}
-          className={clsx({ [classes.backgroundCurrentMenu]: currentPath === item.href })}
-        >
-          <ListItem
-            button
-            component={NavLink}
-            to={item.href}
-            className={classes.nested}
-          >
+      {props.childes.map((item) => (
+        <div key={item.text} className={clsx({ [classes.backgroundCurrentMenu]: currentPath === item.href })}>
+          <ListItem button component={NavLink} to={item.href} className={classes.nested}>
             <ListItemIcon>{<item.icon />}</ListItemIcon>
             <ListItemText primary={item.text} />
           </ListItem>
@@ -42,17 +34,12 @@ const ComponentItem = (props: PropsComponentItem) => {
 
   return (
     <div>
-      <ListItem
-        button={true}
-        component={props.href ? NavLink : 'div'}
-        to={props.href}
-        onClick={handleClick}
-      >
+      <ListItem button={true} component={props.href ? NavLink : 'div'} to={props.href} onClick={handleClick}>
         <ListItemIcon>{<props.icon />}</ListItemIcon>
         <ListItemText primary={props.text} />
         {props.children && (open ? <ExpandMoreIcon /> : <ChevronLeftIcon />)}
       </ListItem>
-      {props.children?.length && <ItemChildren children={props.children} open={open} />}
+      {props.children?.length && <ItemChildren childes={props.children} open={open} />}
     </div>
   )
 }
@@ -65,10 +52,7 @@ const SidebarMenu = () => {
     <List disablePadding>
       {drawerItems.map((item, index) => {
         return (
-          <div
-            key={item.text}
-            className={clsx({ [classes.backgroundCurrentMenu]: currentPath === item.href })}
-          >
+          <div key={item.text} className={clsx({ [classes.backgroundCurrentMenu]: currentPath === item.href })}>
             <ComponentItem {...item} key={index} />
           </div>
         )
@@ -77,7 +61,7 @@ const SidebarMenu = () => {
   )
 }
 
-const DrawerBarNormal = () => {
+export const DrawerBarNormal = () => {
   const classes = drawerStyles()
 
   return (
@@ -90,5 +74,3 @@ const DrawerBarNormal = () => {
     </div>
   )
 }
-
-export default DrawerBarNormal

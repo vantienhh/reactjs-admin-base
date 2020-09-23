@@ -5,7 +5,7 @@ import { TopBarProps } from 'src/types/TopBar'
 import Badge from '@material-ui/core/Badge'
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone'
 import MailOutlineIcon from '@material-ui/icons/MailOutline'
-import TopBarUser from 'src/components/topBar/TopBarUser'
+import { TopBarUser } from './TopBarUser'
 
 const TopBarRight = () => {
   return (
@@ -26,16 +26,11 @@ const TopBarRight = () => {
   )
 }
 
-const TopBar = (props: TopBarProps) => {
+export const TopBar = (props: TopBarProps) => {
   return (
     <div>
-      <Toolbar style={{ minHeight: 50, display: 'flex', justifyContent: 'space-between' }}>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={props.handleDrawer}
-          edge="start"
-        >
+      <Toolbar style={{ minHeight: 50, display: 'flex', justifyContent: 'space-between', backgroundColor: '#2d2d2d' }}>
+        <IconButton color="inherit" aria-label="open drawer" onClick={props.handleDrawer} edge="start">
           <MenuIcon />
         </IconButton>
         <TopBarRight />
@@ -43,5 +38,3 @@ const TopBar = (props: TopBarProps) => {
     </div>
   )
 }
-
-export default TopBar

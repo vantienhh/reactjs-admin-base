@@ -1,19 +1,17 @@
-import App from 'src/App'
 import React from 'react'
+import { App } from 'src/App'
 import { Switch, Route, Redirect } from 'react-router-dom'
-import NotFound from 'src/views/errors/NotFound'
-import ServerError from 'src/views/errors/ServerError'
-import Unauthorized from 'src/views/errors/Unauthorized'
+import { NotFound, ServerError, Unauthorized } from 'src/views/errors'
 
 function Routes() {
   return (
     <Switch>
-      // Errors
+      {/* Errors */}
       <Route exact path="/errors/401" component={Unauthorized} />
       <Route exact path="/errors/404" component={NotFound} />
       <Route exact path="/errors/500" component={ServerError} />
 
-      // App
+      {/* App */}
       <Route exact path="/" render={(props) => <Redirect to="/dashboard" push {...props} />} />
       <Route path="/" component={App} />
     </Switch>

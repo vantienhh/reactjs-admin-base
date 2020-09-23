@@ -9,7 +9,7 @@ export interface Item {
 }
 
 export interface Items {
-  text: string,
+  text: string
   icon: OverridableComponent<SvgIconTypeMap>
   href?: string
   children?: Item[]
@@ -17,11 +17,10 @@ export interface Items {
 
 export interface PropsItemChildren extends PropsWithChildren {
   open: boolean
-  children: Item[]
+  childes: Item[]
 }
 
-export interface PropsComponentItem extends Items {
-}
+export interface PropsComponentItem extends Items {}
 
 // COMPACT
 export interface PropsListItemChildren extends Item {
