@@ -114,13 +114,11 @@ function TopBarRight(): React.FunctionComponentElement<{}> {
 
 export function TopBar(props: TopBarProps): React.FunctionComponentElement<TopBarProps> {
   return (
-    <div>
-      <Toolbar style={{ minHeight: 50, display: 'flex', justifyContent: 'space-between', backgroundColor: '#2d2d2d' }}>
-        <IconButton color="inherit" aria-label="open drawer" onClick={props.handleDrawer} edge="start">
-          <MenuIcon />
-        </IconButton>
-        <TopBarRight />
-      </Toolbar>
-    </div>
+    <Toolbar style={{ minHeight: 50, display: 'flex', justifyContent: 'space-between', backgroundColor: '#2d2d2d' }}>
+      <IconButton color="inherit" aria-label="open drawer" onClick={props.handleDrawer} edge="start">
+        <MenuIcon />
+      </IconButton>
+      <TopBarRight />
+    </Toolbar>
   )
 }

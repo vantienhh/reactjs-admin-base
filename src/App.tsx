@@ -7,8 +7,8 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Route, Switch, Redirect, useLocation } from 'react-router-dom'
 import { CssBaseline, AppBar as MaterialAppBar, Drawer as MaterialDrawer } from '@material-ui/core'
 
-const drawerNormalWidth = 240
-const drawerCompactWidth = 50
+const DRAWER_NORMAL_WIDTH = 240
+const DRAWER_COMPACT_WIDTH = 50
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,26 +17,26 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     topBar: {
       zIndex: theme.zIndex.drawer + 1
-      // transition: theme.transitions.create(['width', 'margin'], {
-      //   easing: theme.transitions.easing.sharp,
-      //   duration: theme.transitions.duration.leavingScreen
-      // })
     },
     topBarShort: {
-      marginLeft: drawerNormalWidth,
-      width: `calc(100% - ${drawerNormalWidth}px)`
+      marginLeft: DRAWER_NORMAL_WIDTH,
+      width: `calc(100% - ${DRAWER_NORMAL_WIDTH}px)`,
+      transition: theme.transitions.create(['width'], {
+        easing: theme.transitions.easing.easeIn,
+        duration: 250
+      })
     },
     topBarLong: {
-      marginLeft: drawerNormalWidth,
-      width: `calc(100% - ${drawerCompactWidth}px)`
+      marginLeft: DRAWER_NORMAL_WIDTH,
+      width: `calc(100% - ${DRAWER_COMPACT_WIDTH}px)`,
+      transition: theme.transitions.create(['width'], {
+        duration: 250
+      })
     },
     toolbar: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'flex-end',
-      // padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      // ...theme.mixins.toolbar
       height: 50
     },
     content: {
@@ -46,80 +46,66 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const styleDrawerNormal = makeStyles(() =>
+const styleDrawerNormal = makeStyles((theme: Theme) =>
   createStyles({
     drawer: {
-      width: drawerNormalWidth,
-      flexShrink: 0,
-      whiteSpace: 'nowrap'
+      width: DRAWER_NORMAL_WIDTH
     },
     pager: {
-      width: drawerNormalWidth
+      width: DRAWER_NORMAL_WIDTH,
+      transition: theme.transitions.create(['width'], {
+        easing: theme.transitions.easing.easeIn,
+        duration: 250
+      })
     }
   })
 )
 
-const styleDrawerCompact = makeStyles(() =>
+const styleDrawerCompact = makeStyles((theme: Theme) =>
   createStyles({
     drawer: {
-      width: drawerCompactWidth,
-      flexShrink: 0,
-      whiteSpace: 'nowrap'
+      width: DRAWER_COMPACT_WIDTH
     },
     pager: {
-      overflowX: 'hidden',
-      width: drawerCompactWidth
+      width: DRAWER_COMPACT_WIDTH,
+      transition: theme.transitions.create(['width'], {
+        duration: 250
+      })
     }
   })
 )
-
-function MaterialDrawerBarNormal(): React.FunctionComponentElement<{}> {
-  const classes = styleDrawerNormal()
-  return (
-    <MaterialDrawer
-      variant="permanent"
-      className={clsx(classes.drawer, classes.pager)}
-      classes={{ paper: classes.pager }}
-    >
-      <DrawerBarNormal />
-    </MaterialDrawer>
-  )
-}
-
-function MaterialDrawerBarCompact(): React.FunctionComponentElement<{}> {
-  const classes = styleDrawerCompact()
-
-  return (
-    <MaterialDrawer
-      variant="permanent"
-      className={clsx(classes.drawer, classes.pager)}
-      classes={{ paper: classes.pager }}
-    >
-      <DrawerBarCompact />
-    </MaterialDrawer>
-  )
-}
 
 function ComponentAppPassAuth(): React.FunctionComponentElement<{}> {
   const classes = useStyles()
-  const [isOpenDrawer, setOpen] = React.useState(false)
-  const handleDrawer = (): void => setOpen(!isOpenDrawer)
+  const classesNormal = styleDrawerNormal()
+  const classesCompact = styleDrawerCompact()
+
+  const [isDrawerNormal, setOpen] = React.useState(false)
+  const handleDrawer = (): void => setOpen(!isDrawerNormal)
 
   return (
     <div className={classes.root}>
       <CssBaseline />
+      {/* Top Bar */}
       <MaterialAppBar
         elevation={0}
         position="fixed"
         className={clsx(classes.topBar, {
-          [classes.topBarShort]: isOpenDrawer,
-          [classes.topBarLong]: !isOpenDrawer
+          [classes.topBarShort]: isDrawerNormal,
+          [classes.topBarLong]: !isDrawerNormal
         })}
       >
-        <TopBar handleDrawer={handleDrawer} isOpenDrawer={isOpenDrawer} />
+        <TopBar handleDrawer={handleDrawer} isDrawerNormal={isDrawerNormal} />
       </MaterialAppBar>
 
-      {isOpenDrawer ? <MaterialDrawerBarNormal /> : <MaterialDrawerBarCompact />}
+      {/* Drawer Bar */}
+      <MaterialDrawer
+        variant="permanent"
+        className={clsx({ [classesNormal.drawer]: isDrawerNormal, [classesCompact.drawer]: !isDrawerNormal })}
+        classes={{ paper: isDrawerNormal ? classesNormal.pager : classesCompact.pager }}
+      >
+        {isDrawerNormal ? <DrawerBarNormal /> : <DrawerBarCompact />}
+      </MaterialDrawer>
 
       <main className={classes.content}>
         <div className={classes.toolbar} />

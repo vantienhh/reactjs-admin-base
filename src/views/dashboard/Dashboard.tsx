@@ -1,5 +1,48 @@
 import React from 'react'
 
 export function Dashboard(): React.FunctionComponentElement<{}> {
-  return <strong>Dashboard</strong>
+  return (
+    <div>
+      <p>Dashboardqwertyuioqasdfghjklzxcvbnm,sdfghjk</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+      <p>Dashboard</p>
+    </div>
+  )
 }
