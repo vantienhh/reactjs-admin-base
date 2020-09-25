@@ -1,2 +1,2 @@
-export * from './DrawerBarCompact'
-export * from './DrawerBarNormal'
+export * from './DrawerBarCompact';
+export * from './DrawerBarNormal';

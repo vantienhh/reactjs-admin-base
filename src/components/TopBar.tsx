@@ -1,12 +1,12 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { TopBarProps } from 'src/types/TopBar'
-import MenuIcon from '@material-ui/icons/Menu'
-import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone'
-import makeStyles from '@material-ui/core/styles/makeStyles'
-import { Button, Avatar, MenuItem, Badge, Menu, IconButton, Toolbar, createStyles, Divider } from '@material-ui/core'
-import { useTranslation } from 'react-i18next'
-import i18next from 'i18next'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { TopBarProps } from 'src/types/TopBar';
+import MenuIcon from '@material-ui/icons/Menu';
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Button, Avatar, MenuItem, Badge, Menu, IconButton, Toolbar, createStyles, Divider } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
 
 const menuItemStyles = makeStyles(() =>
   createStyles({
@@ -14,7 +14,7 @@ const menuItemStyles = makeStyles(() =>
       width: 150
     }
   })
-)
+);
 
 const toolbarStyles = makeStyles(() =>
   createStyles({
@@ -26,21 +26,21 @@ const toolbarStyles = makeStyles(() =>
       color: '#ffffff'
     }
   })
-)
+);
 
 function TopBarUser(): React.FunctionComponentElement<{}> {
-  const classes = menuItemStyles()
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const [openPopup, setOpenPopup] = React.useState(false)
+  const classes = menuItemStyles();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [openPopup, setOpenPopup] = React.useState(false);
 
   const closePopup = () => {
-    setOpenPopup(false)
-    setAnchorEl(null)
-  }
+    setOpenPopup(false);
+    setAnchorEl(null);
+  };
   const clickProfile = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(document.getElementById('top-bar-right') || event.currentTarget)
-    setOpenPopup(true)
-  }
+    setAnchorEl(document.getElementById('top-bar-right') || event.currentTarget);
+    setOpenPopup(true);
+  };
 
   return (
     <span>
@@ -68,26 +68,26 @@ function TopBarUser(): React.FunctionComponentElement<{}> {
         </MenuItem>
       </Menu>
     </span>
-  )
+  );
 }
 
 function TopBarLanguage(): React.FunctionComponentElement<{}> {
-  const [anchorRef, setAnchorRef] = React.useState<null | HTMLElement>(null)
-  const [openPopup, setOpenPopup] = React.useState(false)
-  const { i18n } = useTranslation()
+  const [anchorRef, setAnchorRef] = React.useState<null | HTMLElement>(null);
+  const [openPopup, setOpenPopup] = React.useState(false);
+  const { i18n } = useTranslation();
 
   const showPopupLanguage = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    setAnchorRef(document.getElementById('top-bar-right') || event.currentTarget)
-    setOpenPopup(true)
-  }
+    setAnchorRef(document.getElementById('top-bar-right') || event.currentTarget);
+    setOpenPopup(true);
+  };
   const closePopup = (): void => {
-    setOpenPopup(false)
-    setAnchorRef(null)
-  }
+    setOpenPopup(false);
+    setAnchorRef(null);
+  };
   const changeLanguage = (lang: string): void => {
-    void i18n.changeLanguage(lang)
-    closePopup()
-  }
+    void i18n.changeLanguage(lang);
+    closePopup();
+  };
 
   return (
     <span>
@@ -106,7 +106,7 @@ function TopBarLanguage(): React.FunctionComponentElement<{}> {
         <MenuItem onClick={() => changeLanguage('en')}>EN - English</MenuItem>
       </Menu>
     </span>
-  )
+  );
 }
 
 function TopBarRight(): React.FunctionComponentElement<{}> {
@@ -121,11 +121,11 @@ function TopBarRight(): React.FunctionComponentElement<{}> {
       <TopBarUser />
       <TopBarLanguage />
     </div>
-  )
+  );
 }
 
 export function TopBar(props: TopBarProps): React.FunctionComponentElement<TopBarProps> {
-  const classes = toolbarStyles()
+  const classes = toolbarStyles();
   return (
     <Toolbar className={classes.toolbar}>
       <IconButton color="inherit" aria-label="open drawer" onClick={props.handleDrawer} edge="start">
@@ -133,5 +133,5 @@ export function TopBar(props: TopBarProps): React.FunctionComponentElement<TopBa
       </IconButton>
       <TopBarRight />
     </Toolbar>
-  )
+  );
 }

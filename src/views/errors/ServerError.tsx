@@ -1,8 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import makeStyles from '@material-ui/core/styles/makeStyles'
-import { createStyles } from '@material-ui/core'
-import Button from '@material-ui/core/Button'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import { createStyles } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 const styles = makeStyles(() =>
   createStyles({
@@ -14,10 +14,10 @@ const styles = makeStyles(() =>
       alignItems: 'center'
     }
   })
-)
+);
 
 export function ServerError(): React.FunctionComponentElement<{}> {
-  const classes = styles()
+  const classes = styles();
 
   return (
     <div className={classes.container}>
@@ -28,5 +28,5 @@ export function ServerError(): React.FunctionComponentElement<{}> {
         </Link>
       </Button>
     </div>
-  )
+  );
 }

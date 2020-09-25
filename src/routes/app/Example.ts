@@ -1,4 +1,4 @@
-import { Example, Test } from 'src/views/examples'
+import { Example, Test } from 'src/views/examples';
 
 export default [
   {
@@ -13,4 +13,4 @@ export default [
     component: Test,
     auth: true
   }
-]
+];

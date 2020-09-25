@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export function Dashboard(): React.FunctionComponentElement<{}> {
   return (
@@ -44,5 +44,5 @@ export function Dashboard(): React.FunctionComponentElement<{}> {
       <p>Dashboard</p>
       <p>Dashboard</p>
     </div>
-  )
+  );
 }

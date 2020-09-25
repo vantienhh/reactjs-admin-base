@@ -1,8 +1,8 @@
-import React from 'react'
-import { MenuProps, Menu } from '@material-ui/core'
+import React from 'react';
+import { MenuProps, Menu } from '@material-ui/core';
 
 function HoverMenuComponent(props: MenuProps): React.FunctionComponentElement<MenuProps> {
-  const { style, PaperProps, ref } = props
+  const { style, PaperProps, ref } = props;
 
   return (
     <Menu
@@ -14,8 +14,8 @@ function HoverMenuComponent(props: MenuProps): React.FunctionComponentElement<Me
       }}
       {...props}
     />
-  )
+  );
 }
 
-export const HoverMenu = React.forwardRef((props: MenuProps, ref) => <HoverMenuComponent {...props} ref={ref} />)
-HoverMenu.displayName = 'HoverMenu'
+export const HoverMenu = React.forwardRef((props: MenuProps, ref) => <HoverMenuComponent {...props} ref={ref} />);
+HoverMenu.displayName = 'HoverMenu';

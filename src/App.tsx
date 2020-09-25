@@ -1,14 +1,14 @@
-import React from 'react'
-import clsx from 'clsx'
-import { IRouter } from 'src/types'
-import { appRoutes } from 'src/routes/App'
-import { DrawerBarNormal, DrawerBarCompact, TopBar } from 'src/components'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Route, Switch, Redirect, useLocation } from 'react-router-dom'
-import { CssBaseline, Drawer } from '@material-ui/core'
+import React from 'react';
+import clsx from 'clsx';
+import { IRouter } from 'src/types';
+import { appRoutes } from 'src/routes/App';
+import { DrawerBarNormal, DrawerBarCompact, TopBar } from 'src/components';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
+import { CssBaseline, Drawer } from '@material-ui/core';
 
-const DRAWER_NORMAL_WIDTH = 240
-const DRAWER_COMPACT_WIDTH = 50
+const DRAWER_NORMAL_WIDTH = 240;
+const DRAWER_COMPACT_WIDTH = 50;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,13 +62,13 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 'calc(100% - 52px)'
     }
   })
-)
+);
 
 function ComponentAppPassAuth(): React.FunctionComponentElement<{}> {
-  const classes = useStyles()
+  const classes = useStyles();
 
-  const [isDrawerNormal, setOpen] = React.useState(false)
-  const handleDrawer = (): void => setOpen(!isDrawerNormal)
+  const [isDrawerNormal, setOpen] = React.useState(false);
+  const handleDrawer = (): void => setOpen(!isDrawerNormal);
 
   return (
     <div className={classes.displayFlex}>
@@ -94,24 +94,24 @@ function ComponentAppPassAuth(): React.FunctionComponentElement<{}> {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function checkAuthenticate(route: IRouter): boolean {
-  console.log('route', route)
+  console.log('route', route);
   // check Authenticate
-  return true
+  return true;
 }
 
 export function App(): React.FunctionComponentElement<{}> {
-  const currentPath = useLocation().pathname
-  const router = appRoutes.filter((router) => router.path === currentPath)
+  const currentPath = useLocation().pathname;
+  const router = appRoutes.filter((router) => router.path === currentPath);
 
   if (router.length) {
     if (checkAuthenticate(router[0])) {
-      return <ComponentAppPassAuth />
+      return <ComponentAppPassAuth />;
     }
-    return <Redirect to="/errors/401" />
+    return <Redirect to="/errors/401" />;
   }
-  return <Redirect to="/errors/404" />
+  return <Redirect to="/errors/404" />;
 }

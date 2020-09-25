@@ -1,11 +1,11 @@
-import React from 'react'
-import clsx from 'clsx'
-import { useLocation, NavLink } from 'react-router-dom'
-import { HoverMenu } from 'src/components/HoverMenu'
-import { ListItemText, MenuItem, ListItemIcon, ListItem, Divider, List, createStyles } from '@material-ui/core'
-import { PropsComponentItem, PropsListItemChildren, PropsTreeViewItem } from 'src/types/DrawerBar'
-import { drawerStyles, drawerItems } from './config'
-import makeStyles from '@material-ui/core/styles/makeStyles'
+import React from 'react';
+import clsx from 'clsx';
+import { useLocation, NavLink } from 'react-router-dom';
+import { HoverMenu } from 'src/components/HoverMenu';
+import { ListItemText, MenuItem, ListItemIcon, ListItem, Divider, List, createStyles } from '@material-ui/core';
+import { PropsComponentItem, PropsListItemChildren, PropsTreeViewItem } from 'src/types/DrawerBar';
+import { drawerStyles, drawerItems } from './config';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const itemChildrenIconStyles = makeStyles(() =>
   createStyles({
@@ -13,7 +13,7 @@ const itemChildrenIconStyles = makeStyles(() =>
       minWidth: 30
     }
   })
-)
+);
 
 const treeViewItemStyles = makeStyles(() =>
   createStyles({
@@ -26,10 +26,10 @@ const treeViewItemStyles = makeStyles(() =>
       width: 150
     }
   })
-)
+);
 
 function ItemChildren(props: PropsListItemChildren): React.FunctionComponentElement<PropsListItemChildren> {
-  const classes = itemChildrenIconStyles()
+  const classes = itemChildrenIconStyles();
   return (
     <ListItem button component={NavLink} to={props.href} onClick={props.closeMenu}>
       <ListItemIcon className={classes.iconWidth}>
@@ -37,20 +37,20 @@ function ItemChildren(props: PropsListItemChildren): React.FunctionComponentElem
       </ListItemIcon>
       <ListItemText>{props.text}</ListItemText>
     </ListItem>
-  )
+  );
 }
 
 function TreeViewItem(props: PropsTreeViewItem): React.FunctionComponentElement<PropsTreeViewItem> {
-  const classes = treeViewItemStyles()
-  const [mouseOverMenu, setMouseOverMenu] = React.useState(false)
-  const enterMenu = (): void => setMouseOverMenu(true)
-  const leaveMenu = (): void => setMouseOverMenu(false)
+  const classes = treeViewItemStyles();
+  const [mouseOverMenu, setMouseOverMenu] = React.useState(false);
+  const enterMenu = (): void => setMouseOverMenu(true);
+  const leaveMenu = (): void => setMouseOverMenu(false);
   const closeMenu = (): void => {
-    setMouseOverMenu(false)
-    props.closeMenu()
-  }
+    setMouseOverMenu(false);
+    props.closeMenu();
+  };
 
-  const isOpen = mouseOverMenu || props.mouseOverItem
+  const isOpen = mouseOverMenu || props.mouseOverItem;
 
   return (
     <HoverMenu
@@ -76,26 +76,26 @@ function TreeViewItem(props: PropsTreeViewItem): React.FunctionComponentElement<
         <ItemChildren {...subItem} closeMenu={closeMenu} key={index} />
       ))}
     </HoverMenu>
-  )
+  );
 }
 
 function ItemComponent(props: PropsComponentItem): React.FunctionComponentElement<PropsComponentItem> {
-  const [mouseOverItem, setMouseOverItem] = React.useState(false)
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const leaveItem = (): void => setMouseOverItem(false)
-  const closeMenu = (): void => setMouseOverItem(false)
+  const [mouseOverItem, setMouseOverItem] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const leaveItem = (): void => setMouseOverItem(false);
+  const closeMenu = (): void => setMouseOverItem(false);
   const enterItem = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    setMouseOverItem(true)
-    setAnchorEl(event.currentTarget)
-  }
+    setMouseOverItem(true);
+    setAnchorEl(event.currentTarget);
+  };
 
-  const classes = drawerStyles()
-  const currentPath = useLocation().pathname
+  const classes = drawerStyles();
+  const currentPath = useLocation().pathname;
   const itemHrefInsideCurrentPath =
-    props.href === currentPath || props.children?.some((child) => child.href === currentPath)
+    props.href === currentPath || props.children?.some((child) => child.href === currentPath);
 
-  let propsListItem: any = { button: true }
-  if (props.href) propsListItem = { ...propsListItem, component: NavLink, to: props.href }
+  let propsListItem: any = { button: true };
+  if (props.href) propsListItem = { ...propsListItem, component: NavLink, to: props.href };
 
   return (
     <div>
@@ -111,12 +111,12 @@ function ItemComponent(props: PropsComponentItem): React.FunctionComponentElemen
         <TreeViewItem closeMenu={closeMenu} anchorEl={anchorEl} mouseOverItem={mouseOverItem} {...props} />
       </ListItem>
     </div>
-  )
+  );
 }
 
 function SidebarMenu(): React.FunctionComponentElement<{}> {
-  const classes = drawerStyles()
-  const currentPath = useLocation().pathname
+  const classes = drawerStyles();
+  const currentPath = useLocation().pathname;
 
   return (
     <List disablePadding>
@@ -125,14 +125,14 @@ function SidebarMenu(): React.FunctionComponentElement<{}> {
           <div key={item.text} className={clsx({ [classes.backgroundCurrentMenu]: currentPath === item.href })}>
             <ItemComponent {...item} key={index} />
           </div>
-        )
+        );
       })}
     </List>
-  )
+  );
 }
 
 export function DrawerBarCompact(): React.FunctionComponentElement<{}> {
-  const classes = drawerStyles()
+  const classes = drawerStyles();
 
   return (
     <div>
@@ -142,5 +142,5 @@ export function DrawerBarCompact(): React.FunctionComponentElement<{}> {
       <Divider />
       <SidebarMenu />
     </div>
-  )
+  );
 }

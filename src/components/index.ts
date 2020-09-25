@@ -1,3 +1,3 @@
-export * from './drawerBar'
-export * from './TopBar'
-export * from './HoverMenu'
+export * from './drawerBar';
+export * from './TopBar';
+export * from './HoverMenu';

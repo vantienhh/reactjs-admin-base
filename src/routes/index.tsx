@@ -1,7 +1,7 @@
-import React from 'react'
-import { App } from 'src/App'
-import { Switch, Route, Redirect } from 'react-router-dom'
-import { NotFound, ServerError, Unauthorized } from 'src/views/errors'
+import React from 'react';
+import { App } from 'src/App';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { NotFound, ServerError, Unauthorized } from 'src/views/errors';
 
 function Routes() {
   return (
@@ -15,7 +15,7 @@ function Routes() {
       <Route exact path="/" render={(props) => <Redirect to="/dashboard" push {...props} />} />
       <Route path="/" component={App} />
     </Switch>
-  )
+  );
 }
 
-export default Routes
+export default Routes;

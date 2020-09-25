@@ -1,15 +1,15 @@
-import React from 'react'
-import clsx from 'clsx'
-import { ListItemText, ListItemIcon, ListItem, List, Divider, Collapse } from '@material-ui/core'
-import { NavLink, useLocation } from 'react-router-dom'
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import { drawerStyles, drawerItems } from './config'
-import { PropsItemChildren, PropsComponentItem } from 'src/types/DrawerBar'
+import React from 'react';
+import clsx from 'clsx';
+import { ListItemText, ListItemIcon, ListItem, List, Divider, Collapse } from '@material-ui/core';
+import { NavLink, useLocation } from 'react-router-dom';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { drawerStyles, drawerItems } from './config';
+import { PropsItemChildren, PropsComponentItem } from 'src/types/DrawerBar';
 
 function ItemChildren(props: PropsItemChildren): React.FunctionComponentElement<PropsItemChildren> {
-  const classes = drawerStyles()
-  const currentPath = useLocation().pathname
+  const classes = drawerStyles();
+  const currentPath = useLocation().pathname;
 
   return (
     <Collapse in={props.open} timeout={300} unmountOnExit>
@@ -24,12 +24,12 @@ function ItemChildren(props: PropsItemChildren): React.FunctionComponentElement<
         ))}
       </List>
     </Collapse>
-  )
+  );
 }
 
 function ComponentItem(props: PropsComponentItem): React.FunctionComponentElement<PropsComponentItem> {
-  const [open, setOpen] = React.useState(false)
-  const itemClick = (): void => setOpen(!open)
+  const [open, setOpen] = React.useState(false);
+  const itemClick = (): void => setOpen(!open);
 
   return (
     <div>
@@ -40,12 +40,12 @@ function ComponentItem(props: PropsComponentItem): React.FunctionComponentElemen
       </ListItem>
       {props.children?.length && <ItemChildren childes={props.children} open={open} />}
     </div>
-  )
+  );
 }
 
 function SidebarMenu(): React.FunctionComponentElement<{}> {
-  const classes = drawerStyles()
-  const currentPath = useLocation().pathname
+  const classes = drawerStyles();
+  const currentPath = useLocation().pathname;
 
   return (
     <List disablePadding>
@@ -54,14 +54,14 @@ function SidebarMenu(): React.FunctionComponentElement<{}> {
           <div key={item.text} className={clsx({ [classes.backgroundCurrentMenu]: currentPath === item.href })}>
             <ComponentItem {...item} key={index} />
           </div>
-        )
+        );
       })}
     </List>
-  )
+  );
 }
 
 export function DrawerBarNormal(): React.FunctionComponentElement<{}> {
-  const classes = drawerStyles()
+  const classes = drawerStyles();
 
   return (
     <div>
@@ -71,5 +71,5 @@ export function DrawerBarNormal(): React.FunctionComponentElement<{}> {
       <Divider />
       <SidebarMenu />
     </div>
-  )
+  );
 }

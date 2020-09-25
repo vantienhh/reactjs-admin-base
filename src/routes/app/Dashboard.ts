@@ -1,4 +1,4 @@
-import { Dashboard } from 'src/views/dashboard'
+import { Dashboard } from 'src/views/dashboard';
 
 export default [
   {
@@ -7,4 +7,4 @@ export default [
     component: Dashboard,
     auth: true
   }
-]
+];

@@ -5,7 +5,7 @@
   "trailingComma": "none",
   "tabWidth": 2,
   "useTabs": false,
-  "semi": false,
+  "semi": true,
   "jsxBracketSameLine": false,
   "no-mixed-spaces-and-tabs": ["error", "smart-tabs"]
 }

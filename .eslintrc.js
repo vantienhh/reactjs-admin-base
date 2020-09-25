@@ -36,6 +36,7 @@ module.exports = {
     }
   },
   rules: {
+    semi: 'error',
     'arrow-body-style': 'off',
     'comma-dangle': 'off',
     'import/no-unresolved': 'off',
@@ -46,7 +47,7 @@ module.exports = {
     'no-console': 'off',
     'no-param-reassign': 'off',
     'no-plusplus': 'off',
-    'no-unused-vars': "off",
+    'no-unused-vars': 'off',
     'react/forbid-prop-types': 'off',
     'react/jsx-filename-extension': 'off',
     'react/jsx-props-no-spreading': 'off',

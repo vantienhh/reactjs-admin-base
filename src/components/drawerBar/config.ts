@@ -1,8 +1,8 @@
-import { Items } from 'src/types/DrawerBar'
-import DashboardIcon from '@material-ui/icons/Dashboard'
-import MailIcon from '@material-ui/icons/Mail'
-import { StarBorder } from '@material-ui/icons'
-import { Theme, makeStyles, createStyles } from '@material-ui/core'
+import { Items } from 'src/types/DrawerBar';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import MailIcon from '@material-ui/icons/Mail';
+import { StarBorder } from '@material-ui/icons';
+import { Theme, makeStyles, createStyles } from '@material-ui/core';
 
 export const drawerStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,7 +20,7 @@ export const drawerStyles = makeStyles((theme: Theme) =>
       background: '#dadada'
     }
   })
-)
+);
 
 export const drawerItems: Items[] = [
   {
@@ -44,4 +44,4 @@ export const drawerItems: Items[] = [
       }
     ]
   }
-]
+];
