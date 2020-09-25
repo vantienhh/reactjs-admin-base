@@ -8,10 +8,22 @@ import { Button, Avatar, MenuItem, Badge, Menu, IconButton, Toolbar, createStyle
 import { useTranslation } from 'react-i18next'
 import i18next from 'i18next'
 
-export const menuItemStyles = makeStyles(() =>
+const menuItemStyles = makeStyles(() =>
   createStyles({
     menuItem: {
       width: 150
+    }
+  })
+)
+
+const toolbarStyles = makeStyles(() =>
+  createStyles({
+    toolbar: {
+      minHeight: 50,
+      display: 'flex',
+      justifyContent: 'space-between',
+      backgroundColor: '#2d2d2d',
+      color: '#ffffff'
     }
   })
 )
@@ -113,8 +125,9 @@ function TopBarRight(): React.FunctionComponentElement<{}> {
 }
 
 export function TopBar(props: TopBarProps): React.FunctionComponentElement<TopBarProps> {
+  const classes = toolbarStyles()
   return (
-    <Toolbar style={{ minHeight: 50, display: 'flex', justifyContent: 'space-between', backgroundColor: '#2d2d2d' }}>
+    <Toolbar className={classes.toolbar}>
       <IconButton color="inherit" aria-label="open drawer" onClick={props.handleDrawer} edge="start">
         <MenuIcon />
       </IconButton>

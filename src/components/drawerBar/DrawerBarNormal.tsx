@@ -1,6 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
-import { ListItemText, ListItemIcon, ListItem, List, Divider } from '@material-ui/core'
+import { ListItemText, ListItemIcon, ListItem, List, Divider, Collapse } from '@material-ui/core'
 import { NavLink, useLocation } from 'react-router-dom'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -12,26 +12,28 @@ function ItemChildren(props: PropsItemChildren): React.FunctionComponentElement<
   const currentPath = useLocation().pathname
 
   return (
-    <List disablePadding hidden={!props.open}>
-      {props.childes.map((item) => (
-        <div key={item.text} className={clsx({ [classes.backgroundCurrentMenu]: currentPath === item.href })}>
-          <ListItem button component={NavLink} to={item.href} className={classes.nested}>
-            <ListItemIcon>{<item.icon />}</ListItemIcon>
-            <ListItemText primary={item.text} />
-          </ListItem>
-        </div>
-      ))}
-    </List>
+    <Collapse in={props.open} timeout={300} unmountOnExit>
+      <List disablePadding>
+        {props.childes.map((item) => (
+          <div key={item.text} className={clsx({ [classes.backgroundCurrentMenu]: currentPath === item.href })}>
+            <ListItem button component={NavLink} to={item.href} className={classes.nested}>
+              <ListItemIcon>{<item.icon />}</ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItem>
+          </div>
+        ))}
+      </List>
+    </Collapse>
   )
 }
 
 function ComponentItem(props: PropsComponentItem): React.FunctionComponentElement<PropsComponentItem> {
   const [open, setOpen] = React.useState(false)
-  const handleClick = (): void => setOpen(!open)
+  const itemClick = (): void => setOpen(!open)
 
   return (
     <div>
-      <ListItem button={true} component={props.href ? NavLink : 'div'} to={props.href} onClick={handleClick}>
+      <ListItem button={true} component={props.href ? NavLink : 'div'} to={props.href} onClick={itemClick}>
         <ListItemIcon>{<props.icon />}</ListItemIcon>
         <ListItemText primary={props.text} />
         {props.children && (open ? <ExpandMoreIcon /> : <ChevronLeftIcon />)}
