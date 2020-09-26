@@ -8,7 +8,7 @@ import Routes from 'src/routes';
 
 import './plugins/i18n';
 
-function AppRoot(): React.FunctionComponentElement<{}> {
+function AppRoot() {
   const theme = unstable_createMuiStrictModeTheme({});
 
   const App = () => (
@@ -34,7 +34,7 @@ function AppRoot(): React.FunctionComponentElement<{}> {
 }
 
 const elementRoot: HTMLElement | null = document.getElementById('root');
-let renderMethod: Renderer = elementRoot && elementRoot.innerHTML !== '' ? ReactDOM.hydrate : ReactDOM.render;
+const renderMethod: Renderer = elementRoot && elementRoot.innerHTML !== '' ? ReactDOM.hydrate : ReactDOM.render;
 
 renderMethod(<AppRoot />, elementRoot);
 

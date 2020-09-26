@@ -6,7 +6,7 @@ function loadAppModules() {
   let modules: Array<IRouter> = [];
 
   packs.keys().forEach((key: string) => {
-    let matched = key.match(/([A-Za-z0-9-_]+)\./i);
+    const matched = key.match(/([A-Za-z0-9-_]+)\./i);
     if (matched && matched.length > 1) {
       modules = [...modules, ...packs(key).default];
     }

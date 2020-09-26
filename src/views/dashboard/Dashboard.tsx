@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Dashboard(): React.FunctionComponentElement<{}> {
+export function Dashboard() {
   return (
     <div>
       <p>Dashboardqwertyuioqasdfghjklzxcvbnm,sdfghjk</p>

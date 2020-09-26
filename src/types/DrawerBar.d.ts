@@ -20,7 +20,7 @@ export interface PropsItemChildren extends PropsWithChildren {
   childes: Item[];
 }
 
-export interface PropsComponentItem extends Items {}
+export type PropsComponentItem = Items;
 
 // COMPACT
 export interface PropsListItemChildren extends Item {

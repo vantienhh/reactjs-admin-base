@@ -16,7 +16,7 @@ const styles = makeStyles(() =>
   })
 );
 
-export function NotFound(): React.FunctionComponentElement<{}> {
+export function NotFound() {
   const classes = styles();
 
   return (

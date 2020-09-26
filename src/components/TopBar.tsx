@@ -28,7 +28,7 @@ const toolbarStyles = makeStyles(() =>
   })
 );
 
-function TopBarUser(): React.FunctionComponentElement<{}> {
+function TopBarUser() {
   const classes = menuItemStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [openPopup, setOpenPopup] = React.useState(false);
@@ -71,7 +71,7 @@ function TopBarUser(): React.FunctionComponentElement<{}> {
   );
 }
 
-function TopBarLanguage(): React.FunctionComponentElement<{}> {
+function TopBarLanguage() {
   const [anchorRef, setAnchorRef] = React.useState<null | HTMLElement>(null);
   const [openPopup, setOpenPopup] = React.useState(false);
   const { i18n } = useTranslation();
@@ -109,7 +109,7 @@ function TopBarLanguage(): React.FunctionComponentElement<{}> {
   );
 }
 
-function TopBarRight(): React.FunctionComponentElement<{}> {
+function TopBarRight() {
   return (
     <div id="top-bar-right">
       <IconButton component="span" color="inherit">

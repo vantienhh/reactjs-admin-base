@@ -16,7 +16,7 @@ const styles = makeStyles(() =>
   })
 );
 
-export function Unauthorized(): React.FunctionComponentElement<{}> {
+export function Unauthorized() {
   const classes = styles();
 
   return (

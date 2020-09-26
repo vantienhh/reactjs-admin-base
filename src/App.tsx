@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function ComponentAppPassAuth(): React.FunctionComponentElement<{}> {
+function ComponentAppPassAuth() {
   const classes = useStyles();
 
   const [isDrawerNormal, setOpen] = React.useState(false);
@@ -103,7 +103,7 @@ function checkAuthenticate(route: IRouter): boolean {
   return true;
 }
 
-export function App(): React.FunctionComponentElement<{}> {
+export function App() {
   const currentPath = useLocation().pathname;
   const router = appRoutes.filter((router) => router.path === currentPath);
 

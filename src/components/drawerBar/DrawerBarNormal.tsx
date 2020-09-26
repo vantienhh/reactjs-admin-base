@@ -43,7 +43,7 @@ function ComponentItem(props: PropsComponentItem): React.FunctionComponentElemen
   );
 }
 
-function SidebarMenu(): React.FunctionComponentElement<{}> {
+function SidebarMenu() {
   const classes = drawerStyles();
   const currentPath = useLocation().pathname;
 
@@ -60,7 +60,7 @@ function SidebarMenu(): React.FunctionComponentElement<{}> {
   );
 }
 
-export function DrawerBarNormal(): React.FunctionComponentElement<{}> {
+export function DrawerBarNormal() {
   const classes = drawerStyles();
 
   return (

@@ -114,7 +114,7 @@ function ItemComponent(props: PropsComponentItem): React.FunctionComponentElemen
   );
 }
 
-function SidebarMenu(): React.FunctionComponentElement<{}> {
+function SidebarMenu() {
   const classes = drawerStyles();
   const currentPath = useLocation().pathname;
 
@@ -131,7 +131,7 @@ function SidebarMenu(): React.FunctionComponentElement<{}> {
   );
 }
 
-export function DrawerBarCompact(): React.FunctionComponentElement<{}> {
+export function DrawerBarCompact() {
   const classes = drawerStyles();
 
   return (

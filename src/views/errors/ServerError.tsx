@@ -16,7 +16,7 @@ const styles = makeStyles(() =>
   })
 );
 
-export function ServerError(): React.FunctionComponentElement<{}> {
+export function ServerError() {
   const classes = styles();
 
   return (

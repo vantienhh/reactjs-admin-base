@@ -1,6 +1,4 @@
-import { PropsWithChildren } from 'react';
-
-export interface TopBarProps extends PropsWithChildren<{}> {
+export interface TopBarProps {
   handleDrawer: () => void;
   isDrawerNormal: boolean;
 }
